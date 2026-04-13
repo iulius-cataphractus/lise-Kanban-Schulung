@@ -1,6 +1,6 @@
 # Miro-Framestruktur: Kanban-Schulung lise v4
 
-*Setup-Anleitung für die drei Sessions | Stand: März 2026*
+*Setup-Anleitung für die drei Sessions | Stand: April 2026*
 *Dieses Dokument beschreibt die vollständige Board-Architektur – zum Nachbauen in Miro oder als Grundlage für ein Board-Template.*
 
 ---
@@ -34,19 +34,24 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 │                                     │
 │  WORKFLOW-SKIZZE (S1)               │
 │  [ freie Fläche für Miro-Skizze ]   │
+│  → Platzhalter: Workflow-Skizze     │
 │                                     │
 │  DoW-CHECKLISTE (ausgefüllt in S1)  │
 │  □ Werteinheiten: ____________      │
 │  □ Start- & Endpunkt: _______       │
-│  □ Zustände: ______________         │
+│  □ Spalten/Stages: ____________     │
 │  □ WIP-Steuerung: _________         │
-│  □ Explizite Policies: _____        │
-│  □ SLE (Schätzung): ________        │
+│  □ Exit Criteria: __________        │
+│  □ Prognose (SLE): _________        │
 │                                     │
 │  BLOCKER (gesammelt S2)             │
 │  [ Sticky-Bereich ]                 │
 │                                     │
-│  COMMITMENT (S3)                    │
+│  SCATTERPLOT-ERGEBNISSE (S2)        │
+│  [ Platzhalter: Screenshot TWiG ]   │
+│  85. Perzentil (SLE): ______        │
+│                                     │
+│  COMMITMENT (S2/S3)                 │
 │  Mein nächster Schritt: _______     │
 │  Daran erkenne ich es in __ Wochen: │
 │  Braucht Rückendeckung? J/N         │
@@ -83,14 +88,14 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 
 ### Frame B2: Peer-Review – Briefing
 
-**Arbeitsauftrag (wird als Briefing-Frame geteilt, 15 Min Timer):**
+**Arbeitsauftrag (wird als Briefing-Frame geteilt, 14 Min Timer):**
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  PEER-REVIEW RUNDE 1   |   15 Minuten                   │
+│  PEER-REVIEW RUNDE 1   |   14 Minuten                   │
 │                                                         │
 │  PERSON A:                                              │
 │  Erkläre deinen Workflow – max. 5 Minuten.              │
-│  Was fließt durch deuer Board?                          │
+│  Was fließt durch euer Board?                           │
 │  Wie heißen die Spalten, was bedeuten sie?              │
 │                                                         │
 │  PERSON B:                                              │
@@ -102,13 +107,13 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 │  │ DoW-CHECKLISTE (Person B fragt):                 │  │
 │  │ □ 1. Werteinheiten: Was fließt durch dein Board? │  │
 │  │ □ 2. Start/Ende: Wann startet, wann ist fertig?  │  │
-│  │ □ 3. Zustände: Sind Wartezeiten sichtbar?        │  │
+│  │ □ 3. Spalten/Stages: Sind Wartezeiten sichtbar?  │  │
 │  │ □ 4. WIP-Steuerung: Gibt es Limits?              │  │
-│  │ □ 5. Policies: Sind Regeln explizit?             │  │
-│  │ □ 6. SLE: Wie lange soll's maximal dauern?       │  │
+│  │ □ 5. Exit Criteria: Sind Kriterien explizit?     │  │
+│  │ □ 6. Prognose (SLE): Wie lange dauert's realist? │  │
 │  └──────────────────────────────────────────────────┘  │
 │                                                         │
-│  Nach 15 Min: Rollen tauschen.                         │
+│  Nach 14 Min: Rollen tauschen.                          │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -120,11 +125,11 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 │  DEBRIEFING S1   |   Was fehlte am häufigsten?   │
 │                                                  │
 │  [ Cluster 1 ]       [ Cluster 2 ]               │
-│  Fehlende Policies   WIP-Steuerung fehlt         │
+│  Fehlende Exit Criteria  WIP-Steuerung fehlt     │
 │  [Stickies]          [Stickies]                  │
 │                                                  │
 │  [ Cluster 3 ]       [ Cluster 4 ]               │
-│  SLE unklar          Werteinheiten diffus        │
+│  Prognose unklar     Werteinheiten diffus        │
 │  [Stickies]          [Stickies]                  │
 │                                                  │
 │  VORAB-AUFTRAG S2:                               │
@@ -159,6 +164,10 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 
 ### Frame C2: TWiG – Debriefing-Boards
 
+**TWiG-Link (anklickbar):** https://analytics.actionableagile.com/twig
+
+**Einstellungshinweis:** WIP-Limits manuell setzen | R1 empfohlen: 4-6-4 | R2: Gruppe wählt frei (Einstieg: 2-2-2)
+
 **Setup (je 1 kleines Debriefing-Board pro Runde):**
 ```
 ┌─────────────────────────────────────┐
@@ -170,8 +179,8 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 └─────────────────────────────────────┘
 
 ┌─────────────────────────────────────┐
-│  TWiG RUNDE 2   |   WIP 2-2-2       │
-│  (oder eigene Entscheidung)         │
+│  TWiG RUNDE 2   |   Freie Wahl      │
+│  (Empfehlung: 2-2-2)                │
 │                                     │
 │  Was war anders? ___                │
 │  Warum? ___                         │
@@ -213,7 +222,7 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 │  [Screenshot TWiG-Scatterplot hier einfügen]        │
 │                                                     │
 │  Cycle Time = Zeit von Start bis Fertig             │
-│  85. Perzentil = eure SLE                           │
+│  85. Perzentil = eure Prognose (SLE)                │
 │                                                     │
 │  "85% eurer Items waren in ___ fertig"              │
 │  → Eure SLE: 85% in ___ Tagen oder weniger         │
@@ -229,11 +238,12 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 ┌──────────────────────────────────────────────────────┐
 │  BRIDGING   |   Simulation ↔ Euer Alltag             │
 │                                                      │
-│  3 Verbindungen, die wir gerade gesehen haben:       │
+│  4 Verbindungen, die wir gerade gesehen haben:       │
 │                                                      │
 │  1. Zu viel WIP → lange Cycle Times                  │
 │  2. Blocker → alles dahinter wartet                  │
 │  3. Blocker in Übergängen = fehlende Exit Criteria   │
+│  4. Pull-Signale explizit machen – wer zieht wann?   │
 │                                                      │
 │  EURE BEOBACHTUNGEN:                                 │
 │  Was aus der Simulation kennt ihr aus dem Alltag?    │
@@ -257,7 +267,7 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 │  "Was würde ich als erstes verbessern –      │
 │  und was bringt das meinem Team?"            │
 │                                              │
-│  [Sticky-Bereich für alle Sätze]            │
+│  [Sticky-Bereich für alle Sätze]             │
 └──────────────────────────────────────────────┘
 ```
 
@@ -335,7 +345,8 @@ Ein einziges Miro-Board für alle drei Sessions. Jede Session bekommt ihren eige
 
 **Vor Session 2:**
 - [ ] Zone C Frames angelegt
-- [ ] TWiG-Screenshot-Bereich vorbereitet
+- [ ] TWiG-Einstellungen vorab prüfen: WIP-Limits müssen manuell gesetzt werden können; Test-Runde empfohlen
+- [ ] TWiG-Screenshot-Bereich vorbereitet (Frame C2)
 - [ ] Flussmetriken-Handout als PDF im Board hinterlegt (Miro: Attachment oder Embed)
 
 **Vor Session 3:**

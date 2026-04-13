@@ -6,6 +6,30 @@ Entwickelt und erprobt von [lise GmbH](https://lise.de). Version 4, März 2026.
 
 ---
 
+## GitHub verwenden
+
+Dieses Repository enthält alle Materialien der Kanban-Schulung. Kein GitHub-Konto nötig, um Material zu lesen und herunterzuladen.
+
+### Material herunterladen
+
+**Einzelne Datei:** Datei im Repository anklicken → Button „Raw" oder „Download" oben rechts.  
+**Alle Dateien auf einmal:** Grüner Button „Code" → „Download ZIP".
+
+### HTML-Folien öffnen
+
+1. HTML-Datei herunterladen (z. B. `slides/HTML-Folien_S1_Kanban-Schulung_v4.html`)
+2. Datei im Browser öffnen (Doppelklick auf die Datei genügt)
+3. Navigation mit Pfeiltasten ← → oder den Schaltflächen am unteren Rand
+
+### Verbesserungen vorschlagen
+
+**Issue öffnen** (empfohlen für Feedback und Fehlerhinweise): Reiter „Issues" → „New Issue" → Beschreibung eingeben.  
+**Pull Request:** Datei direkt im Browser bearbeiten → „Propose changes" → Pull Request einreichen. Für direkte Textänderungen an Markdown-Dateien.
+
+Fragen direkt: julian.panze@lise.de
+
+---
+
 ## Was ist das?
 
 Ein reproduzierbares 3-Session-Schulungsformat, das Kanban nicht als Tool, sondern als Denkweise vermittelt. Zielgruppe: Softwareentwicklungsteams, die ihren Workflow verstehen, messen und kontinuierlich verbessern wollen.
@@ -38,12 +62,14 @@ Detaillierte Moderationsanleitungen mit Zeitboxen, Wortlaut-Hinweisen, Backup-Pl
 - [`docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx) – Session 2
 - [`docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx) – Session 3
 - [`docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx`](docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx) – 1-Pager für Teilnehmende (S2)
+- [`docs/Facilitator-Checkliste_Kanban-Schulung_v4.md`](docs/Facilitator-Checkliste_Kanban-Schulung_v4.md) – Vorbereitungs-Checkliste für alle Sessions
 - [`docs/Linksammlung_Kanban-Schulung_v4.docx`](docs/Linksammlung_Kanban-Schulung_v4.docx) – Kuratierte Ressourcen für alle Sessions
+  - *Right-sizing: Link folgt (Quelle in Klärung)*
 
 ### HTML-Folien (Facilitation-Begleitung)
 Navigierbare HTML-Dateien für Bildschirmteilung, Ausdrucken oder Miro-Import. Pfeil-Navigation + Tastatursteuerung.
 
-- [`slides/HTML-Folien_S1_Kanban-Schulung_v4.html`](slides/HTML-Folien_S1_Kanban-Schulung_v4.html) – 10 Folien für Session 1
+- [`slides/HTML-Folien_S1_Kanban-Schulung_v4.html`](slides/HTML-Folien_S1_Kanban-Schulung_v4.html) – 9 Folien für Session 1
 - [`slides/HTML-Folien_S2_Kanban-Schulung_v4.html`](slides/HTML-Folien_S2_Kanban-Schulung_v4.html) – 11 Folien für Session 2
 - [`slides/HTML-Folien_S3_Kanban-Schulung_v4.html`](slides/HTML-Folien_S3_Kanban-Schulung_v4.html) – 10 Folien für Session 3
 
@@ -57,10 +83,11 @@ Navigierbare HTML-Dateien für Bildschirmteilung, Ausdrucken oder Miro-Import. P
 ### Für Facilitatoren
 
 1. **Kanban Guide lesen** – [prokanban.org/the-kanban-guide](https://prokanban.org/the-kanban-guide/)
-2. **Miro-Board aufsetzen** – Anleitung in `miro/Miro-Framestruktur_Kanban-Schulung_v4.md`
-3. **Einladung verschicken** – Template in `docs/Einladungstemplate_Kanban-Schulung_v4.docx` anpassen
-4. **Sessions vorbereiten** – Facilitator-Guides lesen, HTML-Folien im Browser öffnen
-5. **TWiG einrichten** – [analytics.actionableagile.com/twig](https://analytics.actionableagile.com/twig) – Runde 1: WIP 4-6-4, Runde 2: WIP 2-2-2
+2. **Facilitator-Checkliste öffnen** – `docs/Facilitator-Checkliste_Kanban-Schulung_v4.md`
+3. **Miro-Board aufsetzen** – Anleitung in `miro/Miro-Framestruktur_Kanban-Schulung_v4.md`
+4. **Einladung verschicken** – Template in `docs/Einladungstemplate_Kanban-Schulung_v4.docx` anpassen
+5. **Sessions vorbereiten** – Facilitator-Guides lesen, HTML-Folien im Browser öffnen
+6. **TWiG einrichten** – [analytics.actionableagile.com/twig](https://analytics.actionableagile.com/twig) – Runde 1: WIP 4-6-4, Runde 2: frei (Empf. 2-2-2)
 
 ### Zeitplanung
 
@@ -111,6 +138,7 @@ Das Format beruht auf vier Prinzipien:
 
 | Version | Datum | Änderungen |
 |---------|-------|-----------|
+| v4.1 | April 2026 | Terminologie: Zustände→Spalten/Stages, Policies→Exit Criteria, SLE→Prognose. TWiG R1 auf 23 Min erweitert. Spielmechanik-Karte neu. R2 freie Konfiguration. Bridging: Pull-Signale ergänzt. Commitment: Miro-Zone-A-Andockpunkt. fac-notes aus Slides entfernt. Facilitator-Checkliste neu. GitHub-Tutorial neu. |
 | v4 | März 2026 | S2 auf 90 Min erweitert. Retrieval Practice (S2) neu. Pause/Stretch (S2) neu. Flussmetriken-Handout neu. HTML-Folien neu. Feedback-Block (S3) neu. Follow-up-Angebot (S3) neu. |
 | v2.2 | 2025 | Quick-Wins: Puffer S2, Pair-Rotation, KI-Narrativ |
 | v2 | 2024 | Erste vollständige 3-Session-Struktur mit Evaluationsframework |
@@ -124,7 +152,7 @@ Das Format beruht auf vier Prinzipien:
 Du darfst dieses Material frei verwenden, anpassen und weitergeben – auch kommerziell – solange du lise GmbH als Quelle nennst.
 
 Empfohlene Zitierweise:
-> Kanban-Schulung lise, v4 (März 2026). lise GmbH. https://github.com/lise-gmbh/kanban-schulung
+> Kanban-Schulung lise, v4.1 (April 2026). lise GmbH. https://github.com/iulius-cataphractus/lise-Kanban-Schulung
 
 ---
 

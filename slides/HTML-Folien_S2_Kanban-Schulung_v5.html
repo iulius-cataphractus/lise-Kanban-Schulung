@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S2 – Workflow definieren & visualisieren | Kanban-Schulung lise v5</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: Arial, Helvetica, sans-serif; background: #0d1117; color: #1a1a2e; }
+  .stage { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding: 20px 20px 80px; }
+  .slide { display: none; width: 100%; max-width: 960px; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); overflow: hidden; animation: fadeIn 0.2s ease; }
+  .slide.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .slide-header { padding: 14px 28px 12px; display: flex; justify-content: space-between; align-items: baseline; }
+  .slide-header .session-label { font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; }
+  .slide-header .slide-num { font-size: 12px; opacity: 0.6; }
+  .phase-checkin  { background: #1F4E79; color: #fff; }
+  .phase-peer     { background: #1A5C38; color: #fff; }
+  .phase-debrief  { background: #0D6E6E; color: #fff; }
+  .phase-wrap     { background: #4B2D7F; color: #fff; }
+  .phase-intro    { background: #1F4E79; color: #fff; }
+  .phase-info     { background: #404040; color: #fff; }
+  .slide-body { padding: 28px 36px 32px; flex: 1; }
+  .slide-title { font-size: 26px; font-weight: bold; color: #1F4E79; margin-bottom: 6px; line-height: 1.2; }
+  .slide-subtitle { font-size: 14px; color: #666; margin-bottom: 22px; font-style: italic; }
+  .timer { display: inline-block; background: #D6E4F0; color: #1F4E79; font-weight: bold; font-size: 13px; padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+  .timer.warn  { background: #FFF3CD; color: #856404; }
+  .timer.phase { background: #D6EAD9; color: #1A5C38; }
+  .cols { display: grid; gap: 20px; margin-top: 8px; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card { border-left: 5px solid #1F4E79; background: #F7FAFC; padding: 16px 18px; border-radius: 0 6px 6px 0; }
+  .card.green  { border-color: #1A5C38; background: #F0F8F2; }
+  .card.teal   { border-color: #0D6E6E; background: #F0F8F8; }
+  .card.purple { border-color: #4B2D7F; background: #F5F0FF; }
+  .card.gray   { border-color: #888; background: #F8F8F8; }
+  .card.warn   { border-color: #c0392b; background: #FEF5F5; }
+  .card-title { font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; color: #1F4E79; margin-bottom: 8px; }
+  .card.green  .card-title { color: #1A5C38; }
+  .card.teal   .card-title { color: #0D6E6E; }
+  .card.purple .card-title { color: #4B2D7F; }
+  .card.gray   .card-title { color: #555; }
+  .card.warn   .card-title { color: #c0392b; }
+  p { font-size: 15px; line-height: 1.6; color: #222; margin-bottom: 8px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: #1F4E79; }
+  ul { padding-left: 20px; margin: 6px 0; }
+  li { font-size: 15px; line-height: 1.7; color: #222; }
+  li + li { margin-top: 2px; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; padding: 6px 0; border-bottom: 1px solid #eee; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li .num { width: 22px; height: 22px; background: #1F4E79; color: #fff; font-weight: bold; font-size: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .instruction { background: #EEF4FB; border: 1px solid #B0CCE6; border-radius: 6px; padding: 14px 18px; font-size: 15px; line-height: 1.6; color: #1a1a2e; font-style: italic; margin: 12px 0; }
+  .instruction strong { font-style: normal; }
+  .big-num { font-size: 48px; font-weight: bold; color: #1F4E79; line-height: 1; }
+  .big-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 2px; }
+  .progress-wrap { position: fixed; bottom: 0; left: 0; width: 100%; height: 4px; background: #333; z-index: 100; }
+  .progress-bar { height: 100%; background: #1F4E79; transition: width 0.3s ease; }
+  .nav { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; z-index: 200; background: rgba(0,0,0,0.75); padding: 8px 16px; border-radius: 30px; backdrop-filter: blur(4px); }
+  .nav button { background: #fff; color: #1a1a2e; border: none; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background 0.15s; font-weight: bold; }
+  .nav button:hover { background: #D6E4F0; }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .nav .counter { color: #ccc; font-size: 13px; min-width: 60px; text-align: center; }
+  .key-hint { color: #888; font-size: 11px; }
+  hr { border: none; border-top: 1px solid #E0E8F0; margin: 16px 0; }
+  .timeline { display: flex; gap: 0; margin: 16px 0; overflow: hidden; border-radius: 4px; }
+  .timeline-item { flex: 1; padding: 8px 4px; text-align: center; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; cursor: default; }
+  @media print { body { background: white; } .nav, .progress-wrap { display: none !important; } .stage { padding: 0; } .slide { display: flex !important; page-break-after: always; box-shadow: none; border: 1px solid #ccc; max-width: 100%; } .slide:last-child { page-break-after: auto; } }
+</style>
+</head>
+<body>
+<div class="stage">
+
+<!-- SLIDE 0: Titelfolie -->
+<div class="slide active" id="slide-0">
+  <div class="slide-header phase-intro">
+    <span class="session-label">Kanban-Schulung lise | Session 2</span>
+    <span class="slide-num">1 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Session 2</div>
+    <div style="font-size: 32px; font-weight: bold; color: #1F4E79; margin-bottom: 10px;">Workflow definieren &amp; visualisieren</div>
+    <div class="slide-subtitle">60 Minuten &nbsp;&middot;&nbsp; Remote (Video + Miro) &nbsp;&middot;&nbsp; Kanban-Schulung lise v5</div>
+    <div class="timeline">
+      <div class="timeline-item" style="background:#1F4E79; color:#fff;">Check-in<br/><span style="font-weight:normal;">0&ndash;8'</span></div>
+      <div class="timeline-item" style="background:#2563A7; color:#fff;">Input<br/><span style="font-weight:normal;">8&ndash;18'</span></div>
+      <div class="timeline-item" style="background:#1A5C38; color:#fff;">Peer-Review<br/><span style="font-weight:normal;">18&ndash;46'</span></div>
+      <div class="timeline-item" style="background:#0D6E6E; color:#fff;">Debriefing<br/><span style="font-weight:normal;">46&ndash;56'</span></div>
+      <div class="timeline-item" style="background:#4B2D7F; color:#fff;">Abschluss<br/><span style="font-weight:normal;">56&ndash;60'</span></div>
+    </div>
+    <div class="cols cols-2" style="margin-top: 20px;">
+      <div class="card">
+        <div class="card-title">Lernziel der Session</div>
+        <p>Teilnehmende haben ihren Team-Workflow nach Kanban-Kriterien visualisiert und kennen die sechs Dimensionen eines <em>Definition of Workflow (DoW)</em>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 1: Check-in -->
+<div class="slide" id="slide-1">
+  <div class="slide-header phase-checkin">
+    <span class="session-label">Check-in &nbsp;&middot;&nbsp; 0&ndash;8 Min</span>
+    <span class="slide-num">2 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Check-in</div>
+    <div class="slide-subtitle">TWiG-R&uuml;ckblick + Einstiegssch&auml;tzung</div>
+    <span class="timer">&#9201; 8 Minuten</span>
+    <div class="instruction" style="margin-bottom: 16px;">
+      Denkt an die TWiG-Simulation aus Session 1: Ihr habt erlebt, was passiert wenn zu viel gleichzeitig in Arbeit ist. Heute schaut ihr euch euren eigenen Workflow an.
+    </div>
+    <div class="cols cols-2">
+      <div>
+        <div class="card">
+          <div class="card-title">Arbeitsauftrag (Miro)</div>
+          <p><strong>Frage 1:</strong> Wie viele Arbeitstage dauert ein typisches Work Item bei euch?</p>
+          <p style="margin-top:8px;">&rarr; Zahl auf Sticky kleben (dein Arbeitsbereich auf dem Miro-Board)</p>
+        </div>
+        <div class="card green" style="margin-top: 14px;">
+          <div class="card-title">Kurze Runde (je 30 Sek.)</div>
+          <p><strong>Frage 2:</strong> Was hat dich beim Skizzieren &uuml;berrascht &ndash; oder war schwieriger als erwartet?</p>
+        </div>
+        <div class="card warn" style="margin-top: 14px;">
+          <div class="card-title">Eintrittscheck</div>
+          <p>Workflow-Skizze mitgebracht? Kanban Guide gelesen? Beobachtungen aus S1 dabei?</p>
+        </div>
+      </div>
+      <div>
+        <div class="card gray">
+          <div class="card-title">Hinweis</div>
+          <ul>
+            <li>Sch&auml;tzungen sichtbar lassen &ndash; wir kommen in S3 darauf zur&uuml;ck</li>
+            <li>Spannbreite benennen: &bdquo;Ihr sch&auml;tzt von X bis Y&ldquo;</li>
+            <li>Keine Wertung, keine Erkl&auml;rung einfordern</li>
+            <li>Runde straff halten: 30 Sek. pro Person</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: Kurzinput – DoW Überblick -->
+<div class="slide" id="slide-2">
+  <div class="slide-header phase-intro">
+    <span class="session-label">Kurzinput &nbsp;&middot;&nbsp; 8&ndash;18 Min</span>
+    <span class="slide-num">3 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Definition of Workflow (DoW)</div>
+    <div class="slide-subtitle">6 Dimensionen &ndash; kurze Aktivierung</div>
+    <span class="timer">&#9201; 10 Minuten (inkl. Murmelphase)</span>
+    <div class="cols cols-3" style="margin-top: 4px;">
+      <div class="card">
+        <div class="card-title">&① Werteinheiten</div>
+        <p>Was flie&szlig;t durch euer Board? Tickets, Features, Bugs?</p>
+      </div>
+      <div class="card green">
+        <div class="card-title">&② Start &amp; Ende</div>
+        <p>Wann startet ein Item offiziell? Wann gilt es als fertig?</p>
+      </div>
+      <div class="card teal">
+        <div class="card-title">&③ Spalten / Stages</div>
+        <p>Sind Wartezeiten als eigene Spalten sichtbar?</p>
+      </div>
+      <div class="card purple">
+        <div class="card-title">&④ WIP-Steuerung</div>
+        <p>Gibt es Limits? Wie wird &Uuml;berlastung sichtbar?</p>
+        <p style="margin-top: 8px; font-size: 13px; color: #4B2D7F;"><strong>Erinnert euch an TWiG: Was passierte bei WIP 4-6-4 vs. 2-2-2?</strong></p>
+      </div>
+      <div class="card warn">
+        <div class="card-title">&⑤ Exit Criteria / Policies</div>
+        <p>Wann darf ein Item die Spalte verlassen? Exit Criteria machen &Uuml;bergaben explizit und sichtbar.</p>
+      </div>
+      <div class="card gray">
+        <div class="card-title">&⑥ Prognose (SLE)</div>
+        <p>Prognose &ndash; kein hartes Maximum. Wie lange dauern Items realistisch? Kennt euer Team eine Zahl?</p>
+      </div>
+    </div>
+    <div class="instruction" style="margin-top: 16px;">
+      <strong>Murmelphase (2 Min):</strong> Welche dieser 6 Dimensionen habt ihr in eurer Skizze bereits abgebildet &ndash; und welche fehlen noch? Kurz nachschauen, kein Sticky n&ouml;tig.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: Peer-Review Briefing -->
+<div class="slide" id="slide-3">
+  <div class="slide-header phase-peer">
+    <span class="session-label">Peer-Review Briefing &nbsp;&middot;&nbsp; 18&ndash;46 Min</span>
+    <span class="slide-num">4 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Peer-Review</div>
+    <div class="slide-subtitle">Zwei Runden &agrave; 14 Min, dann Rollenwechsel</div>
+    <span class="timer phase">&#9201; 28 Minuten total (2 &times; 14 Min)</span>
+    <div class="cols cols-2">
+      <div class="card green">
+        <div class="card-title">Person A &ndash; erkl&auml;rt (5 Min)</div>
+        <ul>
+          <li>Was flie&szlig;t durch dein Board?</li>
+          <li>Wie hei&szlig;en die Spalten &ndash; was bedeuten sie?</li>
+          <li>Wann startet, wann endet ein Item?</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Person B &ndash; fragt (9 Min)</div>
+        <ul>
+          <li>Stellt Fragen anhand der DoW-Checkliste</li>
+          <li>Erg&auml;nzt direkt im Miro-Board von A</li>
+          <li><strong>Nicht bewerten &ndash; nachfragen &amp; sch&auml;rfen</strong></li>
+        </ul>
+      </div>
+    </div>
+    <hr/>
+    <p style="font-weight: bold; color: #1A5C38; margin-bottom: 10px;">DoW-Checkliste f&uuml;r Person B:</p>
+    <ul class="checklist">
+      <li><span class="num">1</span> <span><strong>Werteinheiten:</strong> Was genau flie&szlig;t durch dein Board? Nur ein Typ oder mehrere?</span></li>
+      <li><span class="num">2</span> <span><strong>Start/Ende:</strong> Wann startet ein Item offiziell &ndash; und wann gilt es als fertig?</span></li>
+      <li><span class="num">3</span> <span><strong>Spalten / Stages:</strong> Gibt es Wartezeiten als eigene Spalten sichtbar?</span></li>
+      <li><span class="num">4</span> <span><strong>WIP-Steuerung:</strong> Wie viele Items d&uuml;rfen gleichzeitig in Bearbeitung sein? Denk an TWiG &ndash; was war der Unterschied?</span></li>
+      <li><span class="num">5</span> <span><strong>Exit Criteria:</strong> Wann darf ein Item weiterziehen? Welche Kriterien m&uuml;ssen erf&uuml;llt sein?</span></li>
+      <li><span class="num">6</span> <span><strong>Prognose (SLE):</strong> Was ist eure realistische Prognose? Wie lange dauern Items typischerweise?</span></li>
+    </ul>
+    <p style="margin-top: 12px; font-size: 13px; color: #555; font-style: italic;">Nach 14 Min: Rollen tauschen. Breakout-Rooms aktivieren. Timer sichtbar lassen.</p>
+  </div>
+</div>
+
+<!-- SLIDE 4: Peer-Review Timer -->
+<div class="slide" id="slide-4">
+  <div class="slide-header phase-peer">
+    <span class="session-label">Peer-Review l&auml;uft &nbsp;&middot;&nbsp; 18&ndash;46 Min</span>
+    <span class="slide-num">5 / 9</span>
+  </div>
+  <div class="slide-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 320px;">
+    <div style="text-align: center; margin-bottom: 24px;">
+      <div class="big-num">14</div>
+      <div class="big-label">Minuten pro Runde</div>
+    </div>
+    <div class="cols cols-2" style="width: 100%; max-width: 600px;">
+      <div class="card green" style="text-align: center; padding: 20px;">
+        <div style="font-size: 32px; margin-bottom: 4px;">&#x1F7E2;</div>
+        <div style="font-weight: bold; font-size: 16px;">Runde 1</div>
+        <p>Person A erkl&auml;rt<br/>Person B fragt</p>
+      </div>
+      <div class="card" style="text-align: center; padding: 20px;">
+        <div style="font-size: 32px; margin-bottom: 4px;">&#x1F535;</div>
+        <div style="font-weight: bold; font-size: 16px;">Runde 2</div>
+        <p>Rollen tauschen<br/>nach 14 Min</p>
+      </div>
+    </div>
+    <div class="instruction" style="max-width: 600px; margin-top: 20px;">
+      W&auml;hrend die Paare arbeiten: <strong>Teilnehmende arbeiten direkt im Miro-Arbeitsbereich der anderen Person.</strong> Erg&auml;nzungen und offene Fragen als Sticky hinterlassen.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: Debriefing -->
+<div class="slide" id="slide-5">
+  <div class="slide-header phase-debrief">
+    <span class="session-label">Debriefing &nbsp;&middot;&nbsp; 46&ndash;56 Min</span>
+    <span class="slide-num">6 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Debriefing</div>
+    <div class="slide-subtitle">Was fehlte am h&auml;ufigsten?</div>
+    <span class="timer">&#9201; 10 Minuten</span>
+    <div class="instruction">
+      <strong>Frage an die Gruppe:</strong> &bdquo;Welche Dimension hat bei den meisten gefehlt &ndash; oder war am schwersten zu beantworten?&ldquo;
+    </div>
+    <div class="cols cols-2" style="margin-top: 4px;">
+      <div>
+        <div class="card teal">
+          <div class="card-title">Facilitator clustert live (auf dem Miro-Board)</div>
+          <ul>
+            <li>Fehlende Exit Criteria</li>
+            <li>WIP-Steuerung fehlt</li>
+            <li>Prognose unklar</li>
+            <li>Werteinheiten diffus</li>
+          </ul>
+          <p style="margin-top: 8px; font-size: 13px; color: #555;">&rarr; Cluster benennen, nicht bewerten</p>
+        </div>
+      </div>
+      <div>
+        <div class="card gray">
+          <div class="card-title">Drei Leitfragen</div>
+          <ol style="padding-left: 18px;">
+            <li style="margin-bottom: 6px;">Was hat euch beim Erkl&auml;ren selbst &uuml;berrascht?</li>
+            <li style="margin-bottom: 6px;">Welche Frage von B war am schwierigsten zu beantworten?</li>
+            <li>Was w&uuml;rdet ihr an eurem Board morgen fr&uuml;h &auml;ndern?</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: DoW vervollständigen -->
+<div class="slide" id="slide-6">
+  <div class="slide-header phase-debrief">
+    <span class="session-label">Einzelarbeit &nbsp;&middot;&nbsp; parallel zum Debriefing</span>
+    <span class="slide-num">7 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">DoW vervollst&auml;ndigen</div>
+    <div class="slide-subtitle">Jede:r erg&auml;nzt den eigenen Bereich in Miro (dein Arbeitsbereich)</div>
+    <span class="timer">&#9201; 5 Minuten (w&auml;hrend Debriefing-Runde)</span>
+    <div class="instruction">
+      <strong>Auftrag:</strong> F&uuml;lle die DoW-Checkliste in deinem Miro-Bereich aus &ndash; auch dort, wo du dir nicht sicher bist. Unsicherheiten mit Fragezeichen markieren.
+    </div>
+    <div class="cols cols-2">
+      <div class="card">
+        <div class="card-title">DoW-Checkliste (dein Arbeitsbereich)</div>
+        <ul class="checklist" style="margin-top: 4px;">
+          <li><span class="num">1</span>Werteinheiten: ___________</li>
+          <li><span class="num">2</span>Start- &amp; Endpunkt: ___________</li>
+          <li><span class="num">3</span>Spalten/Stages: ___________</li>
+          <li><span class="num">4</span>WIP-Steuerung: ___________</li>
+          <li><span class="num">5</span>Exit Criteria: ___________</li>
+          <li><span class="num">6</span>Prognose (SLE): ___________</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-title">Merke: Skizze &#8800; Ideal</div>
+        <p>Der Workflow, den ihr skizziert habt, zeigt den <strong>Ist-Zustand</strong> &ndash; nicht wie er sein sollte.</p>
+        <p style="margin-top: 8px;">L&uuml;cken und Unsicherheiten sind das Material f&uuml;r Session 3.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: Abschluss: Transfer-Commitment & Vorbereitung S3 -->
+<div class="slide" id="slide-7">
+  <div class="slide-header phase-wrap">
+    <span class="session-label">Abschluss &nbsp;&middot;&nbsp; 56&ndash;60 Min</span>
+    <span class="slide-num">8 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Abschluss: Transfer-Commitment &amp; Vorbereitung S3</div>
+    <div class="slide-subtitle">Einen konkreten Schritt formulieren + Vorbereitung f&uuml;r Session 3</div>
+    <div class="card purple" style="margin-bottom: 16px;">
+      <div class="card-title">Transfer-Commitment</div>
+      <p><strong>Schreib einen Satz:</strong> Ich werde _______ in meinem Workflow einf&uuml;hren / &auml;ndern / sichtbar machen.</p>
+      <p style="margin-top: 8px; font-size: 13px; color: #4B2D7F;">Beispiele:</p>
+      <ul style="margin-top: 4px;">
+        <li>&bdquo;Ich werde ein WIP-Limit von 3 f&uuml;r meine In-Progress-Spalte einf&uuml;hren.&ldquo;</li>
+        <li>&bdquo;Ich werde Exit Criteria f&uuml;r unsere Review-Spalte sichtbar machen.&ldquo;</li>
+        <li>&bdquo;Ich werde Blocker ab sofort als eigenes Label im Board flaggen.&ldquo;</li>
+      </ul>
+    </div>
+    <hr/>
+    <div class="card green" style="margin-bottom: 16px;">
+      <div class="card-title">Vorbereitung S3 &ndash; Pflicht</div>
+      <p><strong>Workflow-Retro vorbereiten:</strong> Beantworte diese 3 Fragen schriftlich:</p>
+      <ul style="margin-top: 8px;">
+        <li>Was funktioniert in meinem Workflow bereits gut?</li>
+        <li>Was blockiert den Fluss?</li>
+        <li>Was ist mein n&auml;chster Schritt?</li>
+      </ul>
+      <span class="timer warn" style="margin-top: 12px;">&#9201; ca. 15 Min Aufwand zwischen den Sessions</span>
+    </div>
+    <div class="card warn">
+      <div class="card-title">Teilnahmebedingung S3</div>
+      <p>Wer ohne vorbereitete Workflow-Retro in S3 erscheint, wird gebeten, die n&auml;chste Runde zu buchen. Die Session lebt von der Vorbereitung.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: Quick Reference -->
+<div class="slide" id="slide-8">
+  <div class="slide-header phase-info">
+    <span class="session-label">Quick Reference &nbsp;&middot;&nbsp; Session 2 im &Uuml;berblick</span>
+    <span class="slide-num">9 / 9</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">S2 auf einen Blick</div>
+    <div class="slide-subtitle">Ablauf, Zeiten, Materialien</div>
+    <table style="width:100%; border-collapse: collapse; font-size: 14px; margin-top: 8px;">
+      <thead>
+        <tr style="background: #1F4E79; color: #fff;">
+          <th style="padding: 8px 12px; text-align: left;">Phase</th>
+          <th style="padding: 8px 12px; text-align: left;">Zeit</th>
+          <th style="padding: 8px 12px; text-align: left;">Was passiert</th>
+          <th style="padding: 8px 12px; text-align: left;">Miro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: #F7FAFC;">
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Check-in</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">0&ndash;8'</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Sch&auml;tzfrage + Eintrittscheck Skizzen</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Kurzinput DoW</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">8&ndash;18'</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">6 Dimensionen + Murmelphase</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">&ndash;</td>
+        </tr>
+        <tr style="background: #F7FAFC;">
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Peer-Review R1</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">18&ndash;32'</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">A erkl&auml;rt, B fragt (DoW-Checkliste)</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Peer-Review R2</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">32&ndash;46'</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Rollentausch</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
+        </tr>
+        <tr style="background: #F7FAFC;">
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Debriefing</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">46&ndash;56'</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Cluster + 3 Leitfragen</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 12px;">Vorbereitung S3</td>
+          <td style="padding: 7px 12px;">56&ndash;60'</td>
+          <td style="padding: 7px 12px;">Transfer-Commitment + Vorbereitung erkl&auml;ren</td>
+          <td style="padding: 7px 12px;">&ndash;</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="cols cols-3" style="margin-top: 16px;">
+      <div class="card gray" style="text-align:center;">
+        <div class="big-num" style="font-size: 32px;">6</div>
+        <div class="big-label">DoW-Dimensionen</div>
+      </div>
+      <div class="card green" style="text-align:center;">
+        <div class="big-num" style="font-size: 32px;">2&times;14'</div>
+        <div class="big-label">Peer-Review Runden</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="big-num" style="font-size: 32px;">60'</div>
+        <div class="big-label">Session gesamt</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /stage -->
+
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+<div class="nav">
+  <button id="prevBtn" onclick="navigate(-1)" disabled>&#8592;</button>
+  <span class="counter" id="counter">1 / 9</span>
+  <button id="nextBtn" onclick="navigate(1)">&#8594;</button>
+  <span class="key-hint">&nbsp;&larr; &rarr;</span>
+</div>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  function navigate(dir) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, current + dir));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+    document.getElementById('progressBar').style.width = ((current + 1) / total * 100) + '%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+  document.getElementById('progressBar').style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>

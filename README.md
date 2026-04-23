@@ -2,7 +2,7 @@
 
 **Internes und offenes Schulungsformat für agile Teams in Softwareentwicklungsorganisationen.**
 
-Entwickelt und erprobt von [lise GmbH](https://lise.de). Version 4, März 2026.
+Entwickelt und erprobt von [lise GmbH](https://lise.de). Version 5, April 2026.
 
 ---
 
@@ -17,7 +17,7 @@ Dieses Repository enthält alle Materialien der Kanban-Schulung. Kein GitHub-Kon
 
 ### HTML-Folien öffnen
 
-1. HTML-Datei herunterladen (z. B. `slides/HTML-Folien_S1_Kanban-Schulung_v4.html`)
+1. HTML-Datei herunterladen (z. B. `slides/HTML-Folien_S1_Kanban-Schulung_v5.html`)
 2. Datei im Browser öffnen (Doppelklick auf die Datei genügt)
 3. Navigation mit Pfeiltasten ← → oder den Schaltflächen am unteren Rand
 
@@ -42,11 +42,11 @@ Das Format entstand aus einer internen Schulungsserie und ist so aufgebaut, dass
 
 | Session | Thema | Dauer | Kern-Methode |
 |---------|-------|-------|-------------|
-| S1 | Workflow definieren & visualisieren | 60 Min | Peer-Review mit DoW-Checkliste |
-| S2 | Aktives Workflow-Management & Flussmetriken | 90 Min | TWiG-Simulation + Scatterplot-Analyse |
+| S1 | Flow erleben: TWiG-Simulation & Flussmetriken | 90 Min | TWiG-Simulation + Scatterplot-Analyse |
+| S2 | Workflow definieren & visualisieren | 60 Min | Peer-Review mit DoW-Checkliste |
 | S3 | Kontinuierliche Verbesserung & nächster Schritt | 60 Min | Workflow-Retro + Commitment-Runde |
 
-**Voraussetzungen für Teilnehmende:** Keine Kanban-Vorkenntnisse nötig. Einzige Voraussetzung: Vor S1 den [Kanban Guide von ProKanban.org](https://prokanban.org/the-kanban-guide/) lesen (~15 Min).
+**Voraussetzungen für Teilnehmende:** Keine Kanban-Vorkenntnisse nötig. Keine Vorbereitung vor S1 nötig. Kanban Guide lesen + Workflow skizzieren erfolgt zwischen S1 und S2.
 
 **Voraussetzungen für Facilitatoren:** Kanban-Erfahrung (min. 6 Monate aktive Nutzung), Erfahrung mit Remote-Facilitation, Zugang zu Miro und [TWiG](https://analytics.actionableagile.com/twig).
 
@@ -57,11 +57,11 @@ Das Format entstand aus einer internen Schulungsserie und ist so aufgebaut, dass
 ### Facilitator-Guides (Word)
 Detaillierte Moderationsanleitungen mit Zeitboxen, Wortlaut-Hinweisen, Backup-Plänen und Fehler-Checklisten.
 
-- [`docs/Einladungstemplate_Kanban-Schulung_v4.docx`](docs/Einladungstemplate_Kanban-Schulung_v4.docx) – Einladungsvorlage inkl. Vorab-Auftrag S1
+- [`docs/Einladungstemplate_Kanban-Schulung_v4.docx`](docs/Einladungstemplate_Kanban-Schulung_v4.docx) – Einladungsvorlage inkl. Vorbereitung S1
 - [`docs/Facilitator-Guide_S1_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S1_Kanban-Schulung_v4.docx) – Session 1
 - [`docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx) – Session 2
 - [`docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx) – Session 3
-- [`docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx`](docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx) – 1-Pager für Teilnehmende (S2)
+- [`docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx`](docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx) – 1-Pager für Teilnehmende (S1)
 - [`docs/Facilitator-Checkliste_Kanban-Schulung_v4.md`](docs/Facilitator-Checkliste_Kanban-Schulung_v4.md) – Vorbereitungs-Checkliste für alle Sessions
 - [`docs/Linksammlung_Kanban-Schulung_v4.docx`](docs/Linksammlung_Kanban-Schulung_v4.docx) – Kuratierte Ressourcen für alle Sessions
   - *Right-sizing: Link folgt (Quelle in Klärung)*
@@ -69,9 +69,9 @@ Detaillierte Moderationsanleitungen mit Zeitboxen, Wortlaut-Hinweisen, Backup-Pl
 ### HTML-Folien (Facilitation-Begleitung)
 Navigierbare HTML-Dateien für Bildschirmteilung, Ausdrucken oder Miro-Import. Pfeil-Navigation + Tastatursteuerung.
 
-- [`slides/HTML-Folien_S1_Kanban-Schulung_v4.html`](slides/HTML-Folien_S1_Kanban-Schulung_v4.html) – 9 Folien für Session 1
-- [`slides/HTML-Folien_S2_Kanban-Schulung_v4.html`](slides/HTML-Folien_S2_Kanban-Schulung_v4.html) – 11 Folien für Session 2
-- [`slides/HTML-Folien_S3_Kanban-Schulung_v4.html`](slides/HTML-Folien_S3_Kanban-Schulung_v4.html) – 10 Folien für Session 3
+- [`slides/HTML-Folien_S1_Kanban-Schulung_v5.html`](slides/HTML-Folien_S1_Kanban-Schulung_v5.html) – 11 Folien für Session 1
+- [`slides/HTML-Folien_S2_Kanban-Schulung_v5.html`](slides/HTML-Folien_S2_Kanban-Schulung_v5.html) – 9 Folien für Session 2
+- [`slides/HTML-Folien_S3_Kanban-Schulung_v5.html`](slides/HTML-Folien_S3_Kanban-Schulung_v5.html) – 10 Folien für Session 3
 
 ### Miro-Struktur
 - [`miro/Miro-Framestruktur_Kanban-Schulung_v4.md`](miro/Miro-Framestruktur_Kanban-Schulung_v4.md) – Board-Architektur mit ASCII-Mockups, Arbeitsaufträgen je Frame und technischer Setup-Checkliste
@@ -91,15 +91,15 @@ Navigierbare HTML-Dateien für Bildschirmteilung, Ausdrucken oder Miro-Import. P
 
 ### Zeitplanung
 
-Zwischen den Sessions: 1–2 Wochen Abstand empfohlen, damit Vorab-Aufträge in den Arbeitsalltag eingebettet werden können.
+Zwischen den Sessions: 1–2 Wochen Abstand empfohlen, damit Vorbereitungen in den Arbeitsalltag eingebettet werden können.
 
 ```
-Woche 0:  Einladung + Vorab-Auftrag S1 (Kanban Guide lesen + Workflow skizzieren)
-Woche 1:  Session 1 (60 Min)
-Woche 2:  Vorab-Auftrag S2 (Wartezeiten beobachten)
-Woche 3:  Session 2 (90 Min)
-Woche 4:  Vorab-Auftrag S3 (Workflow-Retro vorbereiten)
-Woche 5:  Session 3 (60 Min)
+Woche 0:  Session Zero (15 Min) – Schulungsstruktur vorstellen + Ablageort zeigen
+Woche 1:  Session 1 (90 Min) – TWiG-Simulation
+Woche 2:  Vorbereitung S2 (Kanban Guide lesen + Workflow skizzieren + Beobachtungen)
+Woche 3:  Session 2 (60 Min) – Workflow definieren & visualisieren
+Woche 4:  Vorbereitung S3 (Workflow-Retro vorbereiten)
+Woche 5:  Session 3 (60 Min) – Kontinuierliche Verbesserung
 Woche 8:  Optionales Follow-up / Lean Coffee
 ```
 
@@ -109,11 +109,11 @@ Woche 8:  Optionales Follow-up / Lean Coffee
 
 Das Format beruht auf vier Prinzipien:
 
-**Erfahrungsbasiertes Lernen:** Kein Frontalvortrag. Der Peer-Review (S1) und die TWiG-Simulation (S2) sind die zentralen Lernmomente – nicht die Inputs.
+**Erfahrung vor Theorie:** Die TWiG-Simulation (S1) ist der bewusste Einstieg: Teilnehmende erleben WIP-Limits, Cycle Time und Fluss am eigenen Leib, bevor sie einen einzigen Kanban-Begriff gehört haben. Das senkt die Einstiegsbarriere (keine Vorbereitung nötig) und schafft ein geteiltes Erlebnis, auf das S2 und S3 aufbauen können.
 
-**Retrieval Practice:** In S2 werden die vier Flussmetriken ohne Vorlage abgerufen. Begriffe, die erinnert werden, sind dauerhafter verankert als Begriffe, die gezeigt wurden.
+**Retrieval Practice:** In S1 werden die vier Flussmetriken direkt aus der Spielerfahrung abgeleitet, nicht frontal präsentiert. In S2 werden die DoW-Dimensionen im Peer-Review aktiv angewendet. Begriffe, die erinnert und angewendet werden, sind dauerhafter verankert als Begriffe, die gezeigt wurden.
 
-**Transfer-Vorbereitung:** Jede Session endet mit einem konkreten Vorab-Auftrag oder Commitment-Satz. Der Übergang zur nächsten Session ist geplanter Lerntransfer.
+**Transfer-Vorbereitung:** Jede Session endet mit einem konkreten Beobachtungsauftrag, Transfer-Commitment oder Vorbereitungsauftrag. Der Übergang zur nächsten Session ist geplanter Lerntransfer.
 
 **Explizite Policies:** Das Format modelliert, was es lehrt: Eintrittscheck, Zeitboxen und Moderationsregeln sind sichtbare, geteilte Vereinbarungen.
 
@@ -128,8 +128,8 @@ Das Format beruht auf vier Prinzipien:
 - Externe Schulungsanbieter, die das Format adaptieren (CC BY 4.0 – mit Namensnennung)
 
 **Weniger geeignet für:**
-- Einzelpersonen ohne Team-Kontext (S1 lebt vom Peer-Review)
-- Teams ohne aktives Board (Vorab-Auftrag S1 nicht erfüllbar)
+- Einzelpersonen ohne Team-Kontext (S2 lebt vom Peer-Review)
+- Teams ohne aktives Board (Vorbereitung S2 nicht erfüllbar)
 - Sehr große Gruppen (>12 TN) ohne Ko-Facilitation
 
 ---
@@ -138,6 +138,7 @@ Das Format beruht auf vier Prinzipien:
 
 | Version | Datum | Änderungen |
 |---------|-------|-----------|
+| v5 | April 2026 | Session-Tausch: TWiG (S1) vor Workflow (S2). Einstiegsbarriere gesenkt (keine Vorbereitung vor S1). TWiG-Rückbezüge in S2 eingebaut. Miro-Zonennamen durch TN-taugliche Begriffe ersetzt. Terminologie: Vorab-Auftrag→Vorbereitung. |
 | v4.1 | April 2026 | Terminologie: Zustände→Spalten/Stages, Policies→Exit Criteria, SLE→Prognose. TWiG R1 auf 23 Min erweitert. Spielmechanik-Karte neu. R2 freie Konfiguration. Bridging: Pull-Signale ergänzt. Commitment: Miro-Zone-A-Andockpunkt. fac-notes aus Slides entfernt. Facilitator-Checkliste neu. GitHub-Tutorial neu. |
 | v4 | März 2026 | S2 auf 90 Min erweitert. Retrieval Practice (S2) neu. Pause/Stretch (S2) neu. Flussmetriken-Handout neu. HTML-Folien neu. Feedback-Block (S3) neu. Follow-up-Angebot (S3) neu. |
 | v2.2 | 2025 | Quick-Wins: Puffer S2, Pair-Rotation, KI-Narrativ |
@@ -152,7 +153,7 @@ Das Format beruht auf vier Prinzipien:
 Du darfst dieses Material frei verwenden, anpassen und weitergeben – auch kommerziell – solange du lise GmbH als Quelle nennst.
 
 Empfohlene Zitierweise:
-> Kanban-Schulung lise, v4.1 (April 2026). lise GmbH. https://github.com/iulius-cataphractus/lise-Kanban-Schulung
+> Kanban-Schulung lise, v5 (April 2026). lise GmbH. https://github.com/iulius-cataphractus/lise-Kanban-Schulung
 
 ---
 

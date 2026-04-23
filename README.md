@@ -57,7 +57,7 @@ Das Format entstand aus einer internen Schulungsserie und ist so aufgebaut, dass
 ### Facilitator-Guides (Word)
 Detaillierte Moderationsanleitungen mit Zeitboxen, Wortlaut-Hinweisen, Backup-Plänen und Fehler-Checklisten.
 
-- [`docs/Einladungstemplate_Kanban-Schulung_v4.docx`](docs/Einladungstemplate_Kanban-Schulung_v4.docx) – Einladungsvorlage inkl. Vorab-Auftrag S1
+- [`docs/Einladungstemplate_Kanban-Schulung_v4.docx`](docs/Einladungstemplate_Kanban-Schulung_v4.docx) – Einladungsvorlage inkl. Vorbereitung S1
 - [`docs/Facilitator-Guide_S1_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S1_Kanban-Schulung_v4.docx) – Session 1
 - [`docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx) – Session 2
 - [`docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx) – Session 3

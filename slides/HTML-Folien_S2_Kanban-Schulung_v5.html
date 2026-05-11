@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S2 – Workflow definieren & visualisieren | Kanban-Schulung lise v5</title>
+<title>S2 – Workflow definieren &amp; visualisieren | Kanban-Schulung lise v5</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; font-family: Arial, Helvetica, sans-serif; background: #0d1117; color: #1a1a2e; }
@@ -35,12 +35,14 @@
   .card.purple { border-color: #4B2D7F; background: #F5F0FF; }
   .card.gray   { border-color: #888; background: #F8F8F8; }
   .card.warn   { border-color: #c0392b; background: #FEF5F5; }
+  .card.amber  { border-color: #d4a017; background: #FFFDE7; }
   .card-title { font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; color: #1F4E79; margin-bottom: 8px; }
   .card.green  .card-title { color: #1A5C38; }
   .card.teal   .card-title { color: #0D6E6E; }
   .card.purple .card-title { color: #4B2D7F; }
   .card.gray   .card-title { color: #555; }
   .card.warn   .card-title { color: #c0392b; }
+  .card.amber  .card-title { color: #856404; }
   p { font-size: 15px; line-height: 1.6; color: #222; margin-bottom: 8px; }
   p:last-child { margin-bottom: 0; }
   strong { color: #1F4E79; }
@@ -66,6 +68,11 @@
   hr { border: none; border-top: 1px solid #E0E8F0; margin: 16px 0; }
   .timeline { display: flex; gap: 0; margin: 16px 0; overflow: hidden; border-radius: 4px; }
   .timeline-item { flex: 1; padding: 8px 4px; text-align: center; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; cursor: default; }
+  /* === v5.1 Ergaenzungen === */
+  .blocker-pipeline { display: flex; align-items: center; gap: 6px; margin: 14px 0; flex-wrap: wrap; }
+  .pipeline-stage { background: #F0F8F8; border: 2px solid #0D6E6E; border-radius: 6px; padding: 8px 14px; font-size: 13px; font-weight: bold; color: #0D6E6E; text-align: center; }
+  .pipeline-stage.blocked { background: #FEF5F5; border-color: #c0392b; color: #c0392b; }
+  .pipeline-arrow { font-size: 18px; color: #aaa; }
   @media print { body { background: white; } .nav, .progress-wrap { display: none !important; } .stage { padding: 0; } .slide { display: flex !important; page-break-after: always; box-shadow: none; border: 1px solid #ccc; max-width: 100%; } .slide:last-child { page-break-after: auto; } }
 </style>
 </head>
@@ -84,7 +91,7 @@
     <div class="slide-subtitle">60 Minuten &nbsp;&middot;&nbsp; Remote (Video + Miro) &nbsp;&middot;&nbsp; Kanban-Schulung lise v5</div>
     <div class="timeline">
       <div class="timeline-item" style="background:#1F4E79; color:#fff;">Check-in<br/><span style="font-weight:normal;">0&ndash;8'</span></div>
-      <div class="timeline-item" style="background:#2563A7; color:#fff;">Input<br/><span style="font-weight:normal;">8&ndash;18'</span></div>
+      <div class="timeline-item" style="background:#2563A7; color:#fff;">Input DoW<br/><span style="font-weight:normal;">8&ndash;18'</span></div>
       <div class="timeline-item" style="background:#1A5C38; color:#fff;">Peer-Review<br/><span style="font-weight:normal;">18&ndash;46'</span></div>
       <div class="timeline-item" style="background:#0D6E6E; color:#fff;">Debriefing<br/><span style="font-weight:normal;">46&ndash;56'</span></div>
       <div class="timeline-item" style="background:#4B2D7F; color:#fff;">Abschluss<br/><span style="font-weight:normal;">56&ndash;60'</span></div>
@@ -106,43 +113,50 @@
   </div>
   <div class="slide-body">
     <div class="slide-title">Check-in</div>
-    <div class="slide-subtitle">TWiG-R&uuml;ckblick + Einstiegssch&auml;tzung</div>
+    <div class="slide-subtitle">Br&uuml;cke aus S1 + Einstiegssch&auml;tzung</div>
     <span class="timer">&#9201; 8 Minuten</span>
-    <div class="instruction" style="margin-bottom: 16px;">
-      Denkt an die TWiG-Simulation aus Session 1: Ihr habt erlebt, was passiert wenn zu viel gleichzeitig in Arbeit ist. Heute schaut ihr euch euren eigenen Workflow an.
+    <div class="instruction" style="margin-bottom: 14px;">
+      In S1 habt ihr notiert: <strong>&bdquo;Ich werde beobachten, ob/wo/wie _______ in meinem Arbeitsalltag passiert.&ldquo;</strong><br/>Was habt ihr seitdem gesehen? 1 Satz pro Person &ndash; kurze Runde.
     </div>
     <div class="cols cols-2">
       <div>
         <div class="card">
           <div class="card-title">Arbeitsauftrag (Miro)</div>
-          <p><strong>Frage 1:</strong> Wie viele Arbeitstage dauert ein typisches Work Item bei euch?</p>
+          <p><strong>Frage:</strong> Wie viele Arbeitstage dauert ein typisches Work Item bei euch?</p>
           <p style="margin-top:8px;">&rarr; Zahl auf Sticky kleben (dein Arbeitsbereich auf dem Miro-Board)</p>
         </div>
         <div class="card green" style="margin-top: 14px;">
-          <div class="card-title">Kurze Runde (je 30 Sek.)</div>
-          <p><strong>Frage 2:</strong> Was hat dich beim Skizzieren &uuml;berrascht &ndash; oder war schwieriger als erwartet?</p>
+          <div class="card-title">Blocker sichtbar machen</div>
+          <p>Wo bleibt Arbeit bei euch h&auml;ngen? Wie sieht das in eurem Workflow aus?</p>
+          <div class="blocker-pipeline">
+            <div class="pipeline-stage">Backlog</div>
+            <div class="pipeline-arrow">&#8594;</div>
+            <div class="pipeline-stage">In Arbeit</div>
+            <div class="pipeline-arrow">&#8594;</div>
+            <div class="pipeline-stage blocked">&#128683; BLOCKED</div>
+            <div class="pipeline-arrow">&#8594;</div>
+            <div class="pipeline-stage">Done</div>
+          </div>
         </div>
         <div class="card warn" style="margin-top: 14px;">
           <div class="card-title">Eintrittscheck</div>
-          <p>Workflow-Skizze mitgebracht? Kanban Guide gelesen? Beobachtungen aus S1 dabei?</p>
+          <p>Workflow-Skizze dabei? Kanban Guide gelesen? Beobachtung aus S1 im Miro?</p>
         </div>
       </div>
-      <div>
-        <div class="card gray">
-          <div class="card-title">Hinweis</div>
-          <ul>
-            <li>Sch&auml;tzungen sichtbar lassen &ndash; wir kommen in S3 darauf zur&uuml;ck</li>
-            <li>Spannbreite benennen: &bdquo;Ihr sch&auml;tzt von X bis Y&ldquo;</li>
-            <li>Keine Wertung, keine Erkl&auml;rung einfordern</li>
-            <li>Runde straff halten: 30 Sek. pro Person</li>
-          </ul>
-        </div>
+      <div class="card">
+        <div class="card-title">Kurze Runde (je ~30 Sek.)</div>
+        <p>Was habt ihr seit S1 beobachtet?</p>
+        <ul style="margin-top: 8px;">
+          <li>Wo stand Arbeit bei euch?</li>
+          <li>Was war &uuml;berraschend schwer zu skizzieren?</li>
+        </ul>
+        <p style="margin-top: 10px; font-size: 13px; color: #555;">Sch&auml;tzungen sichtbar lassen &ndash; wir kommen in S3 darauf zur&uuml;ck.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 2: Kurzinput – DoW Überblick -->
+<!-- SLIDE 2: Kurzinput – DoW -->
 <div class="slide" id="slide-2">
   <div class="slide-header phase-intro">
     <span class="session-label">Kurzinput &nbsp;&middot;&nbsp; 8&ndash;18 Min</span>
@@ -151,36 +165,36 @@
   <div class="slide-body">
     <div class="slide-title">Definition of Workflow (DoW)</div>
     <div class="slide-subtitle">6 Dimensionen &ndash; kurze Aktivierung</div>
-    <span class="timer">&#9201; 10 Minuten (inkl. Murmelphase)</span>
+    <span class="timer">&#9201; 10 Minuten (inkl. Aktivierungsmoment)</span>
     <div class="cols cols-3" style="margin-top: 4px;">
       <div class="card">
-        <div class="card-title">&① Werteinheiten</div>
+        <div class="card-title">&#9312; Werteinheiten</div>
         <p>Was flie&szlig;t durch euer Board? Tickets, Features, Bugs?</p>
       </div>
       <div class="card green">
-        <div class="card-title">&② Start &amp; Ende</div>
+        <div class="card-title">&#9313; Start &amp; Ende</div>
         <p>Wann startet ein Item offiziell? Wann gilt es als fertig?</p>
       </div>
       <div class="card teal">
-        <div class="card-title">&③ Spalten / Stages</div>
+        <div class="card-title">&#9314; Spalten / Stages</div>
         <p>Sind Wartezeiten als eigene Spalten sichtbar?</p>
       </div>
       <div class="card purple">
-        <div class="card-title">&④ WIP-Steuerung</div>
+        <div class="card-title">&#9315; WIP-Steuerung</div>
         <p>Gibt es Limits? Wie wird &Uuml;berlastung sichtbar?</p>
-        <p style="margin-top: 8px; font-size: 13px; color: #4B2D7F;"><strong>Erinnert euch an TWiG: Was passierte bei WIP 4-6-4 vs. 2-2-2?</strong></p>
+        <p style="margin-top: 8px; font-size: 13px; color: #4B2D7F;"><strong>Erinnert euch an TWiG: WIP 4-6-4 vs. 2-2-2?</strong></p>
       </div>
       <div class="card warn">
-        <div class="card-title">&⑤ Exit Criteria / Policies</div>
-        <p>Wann darf ein Item die Spalte verlassen? Exit Criteria machen &Uuml;bergaben explizit und sichtbar.</p>
+        <div class="card-title">&#9316; Exit Criteria</div>
+        <p>Wann darf ein Item die Spalte verlassen? Exit Criteria machen &Uuml;bergaben explizit.</p>
       </div>
       <div class="card gray">
-        <div class="card-title">&⑥ Prognose (SLE)</div>
-        <p>Prognose &ndash; kein hartes Maximum. Wie lange dauern Items realistisch? Kennt euer Team eine Zahl?</p>
+        <div class="card-title">&#9317; Prognose (SLE)</div>
+        <p>Wie lange dauern Items realistisch? Kennt euer Team eine Zahl?</p>
       </div>
     </div>
     <div class="instruction" style="margin-top: 16px;">
-      <strong>Murmelphase (2 Min):</strong> Welche dieser 6 Dimensionen habt ihr in eurer Skizze bereits abgebildet &ndash; und welche fehlen noch? Kurz nachschauen, kein Sticky n&ouml;tig.
+      <strong>Selbst-Check (2 Min):</strong> Schau dir deine Workflow-Skizze an &ndash; welche der 6 Dimensionen hast du bereits abgebildet, welche fehlt am st&auml;rksten? Markiere direkt in Miro.
     </div>
   </div>
 </div>
@@ -188,12 +202,12 @@
 <!-- SLIDE 3: Peer-Review Briefing -->
 <div class="slide" id="slide-3">
   <div class="slide-header phase-peer">
-    <span class="session-label">Peer-Review Briefing &nbsp;&middot;&nbsp; 18&ndash;46 Min</span>
+    <span class="session-label">Peer-Review &nbsp;&middot;&nbsp; 18&ndash;46 Min</span>
     <span class="slide-num">4 / 9</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Peer-Review</div>
-    <div class="slide-subtitle">Zwei Runden &agrave; 14 Min, dann Rollenwechsel</div>
+    <div class="slide-subtitle">Zwei Runden &agrave; 14 Min &ndash; in Runde 2 komplett neuer Partner</div>
     <span class="timer phase">&#9201; 28 Minuten total (2 &times; 14 Min)</span>
     <div class="cols cols-2">
       <div class="card green">
@@ -216,18 +230,17 @@
     <hr/>
     <p style="font-weight: bold; color: #1A5C38; margin-bottom: 10px;">DoW-Checkliste f&uuml;r Person B:</p>
     <ul class="checklist">
-      <li><span class="num">1</span> <span><strong>Werteinheiten:</strong> Was genau flie&szlig;t durch dein Board? Nur ein Typ oder mehrere?</span></li>
-      <li><span class="num">2</span> <span><strong>Start/Ende:</strong> Wann startet ein Item offiziell &ndash; und wann gilt es als fertig?</span></li>
-      <li><span class="num">3</span> <span><strong>Spalten / Stages:</strong> Gibt es Wartezeiten als eigene Spalten sichtbar?</span></li>
-      <li><span class="num">4</span> <span><strong>WIP-Steuerung:</strong> Wie viele Items d&uuml;rfen gleichzeitig in Bearbeitung sein? Denk an TWiG &ndash; was war der Unterschied?</span></li>
-      <li><span class="num">5</span> <span><strong>Exit Criteria:</strong> Wann darf ein Item weiterziehen? Welche Kriterien m&uuml;ssen erf&uuml;llt sein?</span></li>
-      <li><span class="num">6</span> <span><strong>Prognose (SLE):</strong> Was ist eure realistische Prognose? Wie lange dauern Items typischerweise?</span></li>
+      <li><span class="num">1</span> <span><strong>Werteinheiten:</strong> Was genau flie&szlig;t durch dein Board?</span></li>
+      <li><span class="num">2</span> <span><strong>Start/Ende:</strong> Wann startet ein Item &ndash; und wann gilt es als fertig?</span></li>
+      <li><span class="num">3</span> <span><strong>Spalten / Stages:</strong> Gibt es Wartezeiten als eigene Spalten?</span></li>
+      <li><span class="num">4</span> <span><strong>WIP-Steuerung:</strong> Wie viele Items d&uuml;rfen gleichzeitig in Bearbeitung sein?</span></li>
+      <li><span class="num">5</span> <span><strong>Exit Criteria:</strong> Wann darf ein Item weiterziehen?</span></li>
+      <li><span class="num">6</span> <span><strong>Prognose (SLE):</strong> Was ist eure realistische Durchlaufzeit?</span></li>
     </ul>
-    <p style="margin-top: 12px; font-size: 13px; color: #555; font-style: italic;">Nach 14 Min: Rollen tauschen. Breakout-Rooms aktivieren. Timer sichtbar lassen.</p>
   </div>
 </div>
 
-<!-- SLIDE 4: Peer-Review Timer -->
+<!-- SLIDE 4: Peer-Review – Vollständiger Partnerwechsel -->
 <div class="slide" id="slide-4">
   <div class="slide-header phase-peer">
     <span class="session-label">Peer-Review l&auml;uft &nbsp;&middot;&nbsp; 18&ndash;46 Min</span>
@@ -238,25 +251,25 @@
       <div class="big-num">14</div>
       <div class="big-label">Minuten pro Runde</div>
     </div>
-    <div class="cols cols-2" style="width: 100%; max-width: 600px;">
+    <div class="cols cols-2" style="width: 100%; max-width: 620px;">
       <div class="card green" style="text-align: center; padding: 20px;">
         <div style="font-size: 32px; margin-bottom: 4px;">&#x1F7E2;</div>
         <div style="font-weight: bold; font-size: 16px;">Runde 1</div>
-        <p>Person A erkl&auml;rt<br/>Person B fragt</p>
+        <p>A erkl&auml;rt<br/>B fragt (DoW-Checkliste)</p>
       </div>
       <div class="card" style="text-align: center; padding: 20px;">
-        <div style="font-size: 32px; margin-bottom: 4px;">&#x1F535;</div>
+        <div style="font-size: 32px; margin-bottom: 4px;">&#x1F501;</div>
         <div style="font-weight: bold; font-size: 16px;">Runde 2</div>
-        <p>Rollen tauschen<br/>nach 14 Min</p>
+        <p><strong>Komplett neuer Partner</strong><br/>Jede:r sieht jetzt einen anderen Workflow</p>
       </div>
     </div>
     <div class="instruction" style="max-width: 600px; margin-top: 20px;">
-      W&auml;hrend die Paare arbeiten: <strong>Teilnehmende arbeiten direkt im Miro-Arbeitsbereich der anderen Person.</strong> Erg&auml;nzungen und offene Fragen als Sticky hinterlassen.
+      Arbeitet direkt im <strong>Miro-Arbeitsbereich der anderen Person</strong>. Erg&auml;nzungen und offene Fragen als Sticky hinterlassen.
     </div>
   </div>
 </div>
 
-<!-- SLIDE 5: Debriefing -->
+<!-- SLIDE 5: Debriefing – TNs clustern selbst -->
 <div class="slide" id="slide-5">
   <div class="slide-header phase-debrief">
     <span class="session-label">Debriefing &nbsp;&middot;&nbsp; 46&ndash;56 Min</span>
@@ -267,30 +280,26 @@
     <div class="slide-subtitle">Was fehlte am h&auml;ufigsten?</div>
     <span class="timer">&#9201; 10 Minuten</span>
     <div class="instruction">
-      <strong>Frage an die Gruppe:</strong> &bdquo;Welche Dimension hat bei den meisten gefehlt &ndash; oder war am schwersten zu beantworten?&ldquo;
+      <strong>Auftrag (2 Min still):</strong> Schreib auf ein Sticky: &bdquo;Die Dimension, die in meinem Workflow am st&auml;rksten gefehlt hat, ist _______.&ldquo;<br/>Klebe das Sticky auf das gemeinsame Miro-Board &ndash; und schau, welche Muster ihr selbst seht.
     </div>
     <div class="cols cols-2" style="margin-top: 4px;">
-      <div>
-        <div class="card teal">
-          <div class="card-title">Facilitator clustert live (auf dem Miro-Board)</div>
-          <ul>
-            <li>Fehlende Exit Criteria</li>
-            <li>WIP-Steuerung fehlt</li>
-            <li>Prognose unklar</li>
-            <li>Werteinheiten diffus</li>
-          </ul>
-          <p style="margin-top: 8px; font-size: 13px; color: #555;">&rarr; Cluster benennen, nicht bewerten</p>
-        </div>
+      <div class="card teal">
+        <div class="card-title">Drei Leitfragen f&uuml;r die Gruppe</div>
+        <ol style="padding-left: 18px;">
+          <li style="margin-bottom: 6px;">Was hat euch beim Erkl&auml;ren selbst &uuml;berrascht?</li>
+          <li style="margin-bottom: 6px;">Welche Frage von B war am schwierigsten zu beantworten?</li>
+          <li>Was w&uuml;rdet ihr an eurem Board morgen fr&uuml;h &auml;ndern?</li>
+        </ol>
       </div>
-      <div>
-        <div class="card gray">
-          <div class="card-title">Drei Leitfragen</div>
-          <ol style="padding-left: 18px;">
-            <li style="margin-bottom: 6px;">Was hat euch beim Erkl&auml;ren selbst &uuml;berrascht?</li>
-            <li style="margin-bottom: 6px;">Welche Frage von B war am schwierigsten zu beantworten?</li>
-            <li>Was w&uuml;rdet ihr an eurem Board morgen fr&uuml;h &auml;ndern?</li>
-          </ol>
-        </div>
+      <div class="card green">
+        <div class="card-title">Cluster benennen</div>
+        <p>Welche Themen h&auml;ufen sich auf dem Miro-Board?</p>
+        <ul style="margin-top: 8px;">
+          <li>Fehlende Exit Criteria</li>
+          <li>WIP-Steuerung fehlt</li>
+          <li>Prognose unklar</li>
+          <li>Werteinheiten diffus</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -304,8 +313,8 @@
   </div>
   <div class="slide-body">
     <div class="slide-title">DoW vervollst&auml;ndigen</div>
-    <div class="slide-subtitle">Jede:r erg&auml;nzt den eigenen Bereich in Miro (dein Arbeitsbereich)</div>
-    <span class="timer">&#9201; 5 Minuten (w&auml;hrend Debriefing-Runde)</span>
+    <div class="slide-subtitle">Jede:r erg&auml;nzt den eigenen Bereich in Miro</div>
+    <span class="timer">&#9201; 5 Minuten</span>
     <div class="instruction">
       <strong>Auftrag:</strong> F&uuml;lle die DoW-Checkliste in deinem Miro-Bereich aus &ndash; auch dort, wo du dir nicht sicher bist. Unsicherheiten mit Fragezeichen markieren.
     </div>
@@ -323,46 +332,43 @@
       </div>
       <div class="card green">
         <div class="card-title">Merke: Skizze &#8800; Ideal</div>
-        <p>Der Workflow, den ihr skizziert habt, zeigt den <strong>Ist-Zustand</strong> &ndash; nicht wie er sein sollte.</p>
+        <p>Was ihr skizziert habt, zeigt den <strong>Ist-Zustand</strong> &ndash; nicht wie er sein sollte.</p>
         <p style="margin-top: 8px;">L&uuml;cken und Unsicherheiten sind das Material f&uuml;r Session 3.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 7: Abschluss: Transfer-Commitment & Vorbereitung S3 -->
+<!-- SLIDE 7: Abschluss – Konjunktiv-Commitment + Interview-Format S3 -->
 <div class="slide" id="slide-7">
   <div class="slide-header phase-wrap">
     <span class="session-label">Abschluss &nbsp;&middot;&nbsp; 56&ndash;60 Min</span>
     <span class="slide-num">8 / 9</span>
   </div>
   <div class="slide-body">
-    <div class="slide-title">Abschluss: Transfer-Commitment &amp; Vorbereitung S3</div>
-    <div class="slide-subtitle">Einen konkreten Schritt formulieren + Vorbereitung f&uuml;r Session 3</div>
+    <div class="slide-title">Abschluss &amp; Vorbereitung S3</div>
+    <div class="slide-subtitle">Was w&uuml;rde ich tun &ndash; und was bringe ich zu S3 mit?</div>
     <div class="card purple" style="margin-bottom: 16px;">
-      <div class="card-title">Transfer-Commitment</div>
-      <p><strong>Schreib einen Satz:</strong> Ich werde _______ in meinem Workflow einf&uuml;hren / &auml;ndern / sichtbar machen.</p>
-      <p style="margin-top: 8px; font-size: 13px; color: #4B2D7F;">Beispiele:</p>
-      <ul style="margin-top: 4px;">
-        <li>&bdquo;Ich werde ein WIP-Limit von 3 f&uuml;r meine In-Progress-Spalte einf&uuml;hren.&ldquo;</li>
-        <li>&bdquo;Ich werde Exit Criteria f&uuml;r unsere Review-Spalte sichtbar machen.&ldquo;</li>
-        <li>&bdquo;Ich werde Blocker ab sofort als eigenes Label im Board flaggen.&ldquo;</li>
+      <div class="card-title">Mein Commitment</div>
+      <p><strong>Schreib einen Satz:</strong> Was w&uuml;rde ich in meinem Workflow einf&uuml;hren / &auml;ndern / sichtbar machen, wenn ich es alleine entscheiden k&ouml;nnte?</p>
+      <p style="margin-top: 8px; font-size: 13px; color: #4B2D7F;">Konjunktiv &ndash; denn Ver&auml;nderung im Kanban-System geh&ouml;rt dem gesamten Team, nicht nur dir.</p>
+      <ul style="margin-top: 8px;">
+        <li>&bdquo;Ich w&uuml;rde ein WIP-Limit von 3 f&uuml;r unsere In-Progress-Spalte vorschlagen.&ldquo;</li>
+        <li>&bdquo;Ich w&uuml;rde Exit Criteria f&uuml;r unsere Review-Spalte sichtbar machen.&ldquo;</li>
+        <li>&bdquo;Ich w&uuml;rde Blocker ab sofort als eigenes Label flaggen.&ldquo;</li>
       </ul>
     </div>
     <hr/>
-    <div class="card green" style="margin-bottom: 16px;">
-      <div class="card-title">Vorbereitung S3 &ndash; Pflicht</div>
-      <p><strong>Workflow-Retro vorbereiten:</strong> Beantworte diese 3 Fragen schriftlich:</p>
+    <div class="card green">
+      <div class="card-title">Vorbereitung S3 &ndash; Pflicht: Interview mit 2 Teammitgliedern</div>
+      <p>F&uuml;hre bis S3 ein kurzes Interview mit <strong>2 Teammitgliedern</strong> (je ~5 Min):</p>
       <ul style="margin-top: 8px;">
-        <li>Was funktioniert in meinem Workflow bereits gut?</li>
-        <li>Was blockiert den Fluss?</li>
-        <li>Was ist mein n&auml;chster Schritt?</li>
+        <li>Was l&auml;uft in unserem Workflow gut?</li>
+        <li>Was blockiert uns am st&auml;rksten?</li>
+        <li>Was w&auml;re dein Vorschlag f&uuml;r eine konkrete Verbesserung?</li>
       </ul>
-      <span class="timer warn" style="margin-top: 12px;">&#9201; ca. 15 Min Aufwand zwischen den Sessions</span>
-    </div>
-    <div class="card warn">
-      <div class="card-title">Teilnahmebedingung S3</div>
-      <p>Wer ohne vorbereitete Workflow-Retro in S3 erscheint, wird gebeten, die n&auml;chste Runde zu buchen. Die Session lebt von der Vorbereitung.</p>
+      <p style="margin-top: 10px; font-size: 14px;"><strong>Mitbringen zu S3:</strong> Deine 3 wichtigsten Erkenntnisse aus den Interviews.</p>
+      <span class="timer warn" style="margin-top: 10px; display: inline-block;">&#9201; ca. 15 Min Aufwand zwischen den Sessions</span>
     </div>
   </div>
 </div>
@@ -389,14 +395,14 @@
         <tr style="background: #F7FAFC;">
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Check-in</td>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">0&ndash;8'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Sch&auml;tzfrage + Eintrittscheck Skizzen</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Beobachtungsrunde aus S1 + Sch&auml;tzfrage</td>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
         </tr>
         <tr>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Kurzinput DoW</td>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">8&ndash;18'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">6 Dimensionen + Murmelphase</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">&ndash;</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">6 Dimensionen + Selbst-Check in Miro</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
         </tr>
         <tr style="background: #F7FAFC;">
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Peer-Review R1</td>
@@ -407,19 +413,19 @@
         <tr>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Peer-Review R2</td>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">32&ndash;46'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Rollentausch</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;"><strong>Komplett neuer Partner</strong> &ndash; anderer Workflow</td>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
         </tr>
         <tr style="background: #F7FAFC;">
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Debriefing</td>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">46&ndash;56'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Cluster + 3 Leitfragen</td>
+          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">TNs clustern selbst + 3 Leitfragen</td>
           <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
         </tr>
         <tr>
-          <td style="padding: 7px 12px;">Vorbereitung S3</td>
+          <td style="padding: 7px 12px;">Abschluss</td>
           <td style="padding: 7px 12px;">56&ndash;60'</td>
-          <td style="padding: 7px 12px;">Transfer-Commitment + Vorbereitung erkl&auml;ren</td>
+          <td style="padding: 7px 12px;">Konjunktiv-Commitment + Interview-Auftrag S3</td>
           <td style="padding: 7px 12px;">&ndash;</td>
         </tr>
       </tbody>

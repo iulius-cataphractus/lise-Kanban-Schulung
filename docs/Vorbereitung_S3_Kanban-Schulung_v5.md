@@ -22,6 +22,15 @@ Frag zwei Personen aus deinem Team – informell, kein Meeting nötig:
 
 ---
 
+## Optional: Rückblick auf S1 und S2 (~5 Min)
+
+→ **Beobachtungsauftrag aus S1:** Was hast du seit dem Beginn der Schulung beobachtet, das heute noch relevant ist?
+→ **Workflow-Skizze aus S2:** Hat sich dein Blick auf deinen Workflow verändert? Was würdest du heute anders skizzieren?
+
+Diese Fragen sind kein Pflicht – aber sie helfen dir, heute mehr herauszuholen.
+
+---
+
 ## Hinweis
 
 Du musst nicht tief gehen – 5 Minuten pro Person reichen. Die Außenperspektive ist das Entscheidende, nicht die Vollständigkeit.
@@ -37,3 +46,4 @@ In Session 3 wirst du deine Interview-Erkenntnisse mit einer anderen Person sch�
 ---
 
 *Vorbereitungsblatt S3 | Kanban-Schulung lise v5 | [DATUM]*
+*→ Alle Schulungsunterlagen & Slides: https://iulius-cataphractus.github.io/lise-Kanban-Schulung/*

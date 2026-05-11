@@ -11,6 +11,7 @@ Ohne diese Vorbereitung kannst du nicht an Session 2 teilnehmen.
 
 ☐ **1. Kanban Guide gelesen** (~15 Min)
 → [Kanban Guide von ProKanban.org](https://prokanban.org/the-kanban-guide/) – kostenlos, ~15 Minuten
+→ **Lese-Fokus:** Achte besonders auf *Definition of Workflow*, *Commitment Point* und *WIP-Limits* – diese Begriffe stehen im Mittelpunkt der Session.
 
 ☐ **2. Deinen Workflow skizziert** (~30 Min)
 → Skizziere, wie Arbeit in deinem Team wirklich fließt – von Anfang bis Ende.
@@ -29,6 +30,12 @@ Skizziere deinen Team-Workflow so, wie er **wirklich** ist – nicht wie er sein
 
 **Format:** In Miro (dein Arbeitsbereich), auf Papier (Foto), oder als einfache Zeichnung. Hauptsache: konkret und für andere sichtbar.
 
+**Diese Fragen helfen dir beim Skizzieren:**
+→ Welche Arbeitsschritte durchläuft ein Item bei euch? (z.B. Analyse → Dev → Review → Done)
+→ Wo beginnt ein Item offiziell – und wann gilt es als fertig?
+→ Gibt es Arbeitsschritte, die auf eurem Board nicht sichtbar sind?
+→ Wo bleibt Arbeit bei euch regelmäßig stecken?
+
 ---
 
 ## Eintrittscheck
@@ -39,3 +46,4 @@ Zu Beginn von Session 2 wird kurz geprüft, ob eine fertige Workflow-Skizze vorl
 
 *Vorbereitungsblatt S2 | Kanban-Schulung lise v5 | [DATUM]*
 *→ Vorbereitung S3 erhältst du direkt nach dieser Session.*
+*→ Alle Schulungsunterlagen & Slides: https://iulius-cataphractus.github.io/lise-Kanban-Schulung/*

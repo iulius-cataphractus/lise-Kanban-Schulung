@@ -16,6 +16,7 @@ Komm pünktlich – das ist alles, was zählt.
 - **Miro-Board**: [LINK] – leg dir dort einen eigenen Arbeitsbereich an (Anleitung steht direkt im Board)
 - **Video-Call**: [LINK]
 - **Browser für TWiG**: https://analytics.actionableagile.com/twig – teste kurz, ob die Seite bei dir lädt
+- **Schulungsunterlagen & Slides**: https://iulius-cataphractus.github.io/lise-Kanban-Schulung/ – hier findest du alle Materialien
 
 ---
 

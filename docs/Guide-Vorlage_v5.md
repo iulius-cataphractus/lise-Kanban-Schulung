@@ -96,8 +96,8 @@
 ⏱ **Zeitbox:** 5 Min (kein Puffer – Phase ist kurz)
 
 **Ablauf:**
-1. Frage stellen: „Wie oft weißt du, wann etwas fertig sein wird?"
-2. Alle antworten gleichzeitig per Daumen-Emoji im Chat oder Geste in Kamera
+1. Frage stellen: „Wenn du an deinen Arbeitsalltag denkst – wie oft weißt du, wann etwas fertig sein wird?"
+2. Alle antworten gleichzeitig: 👍 Meistens / 👉 Manchmal / 👎 Selten – per Emoji im Chat oder Geste in Kamera
 3. Streuung benennen → in Session überleiten
 
 💬 **Kernaussage (in eigenen Worten):**

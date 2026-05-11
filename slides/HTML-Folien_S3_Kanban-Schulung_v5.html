@@ -63,6 +63,11 @@
   .timeline { display: flex; gap: 0; margin: 16px 0; overflow: hidden; border-radius: 4px; }
   .timeline-item { flex: 1; padding: 8px 4px; text-align: center; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; }
   hr { border: none; border-top: 1px solid #E0E8F0; margin: 16px 0; }
+  .learned-item { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; border-bottom: 1px solid #E8EEF4; }
+  .learned-item:last-child { border-bottom: none; }
+  .learned-check { font-size: 18px; flex-shrink: 0; line-height: 1.5; font-weight: bold; }
+  .learned-text { font-size: 14px; color: #222; line-height: 1.6; }
+  .learned-text strong { color: inherit; font-weight: bold; }
   .progress-wrap { position: fixed; bottom: 0; left: 0; width: 100%; height: 4px; background: #333; z-index: 100; }
   .progress-bar { height: 100%; background: #4B2D7F; transition: width 0.3s ease; }
   .nav { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; z-index: 200; background: rgba(0,0,0,0.75); padding: 8px 16px; border-radius: 30px; backdrop-filter: blur(4px); }
@@ -81,7 +86,7 @@
 <div class="slide active" id="slide-0">
   <div class="slide-header phase-intro">
     <span class="session-label">Kanban-Schulung lise | Session 3</span>
-    <span class="slide-num">1 / 9</span>
+    <span class="slide-num">1 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Session 3</div>
@@ -116,7 +121,7 @@
 <div class="slide" id="slide-1">
   <div class="slide-header phase-intro">
     <span class="session-label">Check-in &nbsp;·&nbsp; 0–5 Min</span>
-    <span class="slide-num">2 / 9</span>
+    <span class="slide-num">2 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Check-in</div>
@@ -143,11 +148,11 @@
   </div>
 </div>
 
-<!-- SLIDE 2: Blocker kennen und benennen (ehem. Input) -->
+<!-- SLIDE 2: Blocker kennen und benennen -->
 <div class="slide" id="slide-2">
   <div class="slide-header phase-intro">
     <span class="session-label">Blocker kennen &nbsp;·&nbsp; 5–15 Min</span>
-    <span class="slide-num">3 / 9</span>
+    <span class="slide-num">3 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Blocker kennen und benennen</div>
@@ -182,11 +187,11 @@
   </div>
 </div>
 
-<!-- SLIDE 3: Workflow-Retro Einzelarbeit -->
+<!-- SLIDE 3: Workflow-Retro Einzelarbeit (AP-21 Option C: Flussmetriken als optionale Retro-Linse) -->
 <div class="slide" id="slide-3">
   <div class="slide-header phase-retro">
     <span class="session-label">Workflow-Retro (Einzelarbeit) &nbsp;·&nbsp; 15–30 Min</span>
-    <span class="slide-num">4 / 9</span>
+    <span class="slide-num">4 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Workflow-Retro</div>
@@ -200,6 +205,7 @@
       <div class="card blue">
         <div class="card-title">Frage 2</div>
         <p>Was blockiert den Fluss &ndash; und habe ich eine Policy daf&#252;r?</p>
+        <p style="margin-top: 8px; font-size: 13px; color: #1F4E79;"><em>Optional: Findest du Cycle Time, Work Item Age, WIP oder Throughput in deinem Problem wieder?</em></p>
       </div>
       <div class="card">
         <div class="card-title">Frage 3</div>
@@ -216,7 +222,7 @@
 <div class="slide" id="slide-4">
   <div class="slide-header phase-retro">
     <span class="session-label">Tandems &nbsp;·&nbsp; 30–50 Min</span>
-    <span class="slide-num">5 / 9</span>
+    <span class="slide-num">5 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Tandems</div>
@@ -252,7 +258,7 @@
 <div class="slide" id="slide-5">
   <div class="slide-header phase-commit">
     <span class="session-label">Commitment-Runde &nbsp;·&nbsp; 50–57 Min</span>
-    <span class="slide-num">6 / 9</span>
+    <span class="slide-num">6 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Commitment-Runde</div>
@@ -284,7 +290,7 @@
 <div class="slide" id="slide-6">
   <div class="slide-header phase-close">
     <span class="session-label">Feedback &nbsp;·&nbsp; 57–59 Min</span>
-    <span class="slide-num">7 / 9</span>
+    <span class="slide-num">7 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Feedback einsammeln</div>
@@ -305,7 +311,7 @@
 <div class="slide" id="slide-7">
   <div class="slide-header phase-close">
     <span class="session-label">Ausblick &amp; Abschluss &nbsp;·&nbsp; 59–60 Min</span>
-    <span class="slide-num">8 / 9</span>
+    <span class="slide-num">8 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">Ausblick &amp; Abschluss</div>
@@ -333,11 +339,73 @@
   </div>
 </div>
 
-<!-- SLIDE 8: Quick Reference (ehem. Slide 9 – Fac-Nachbereitung entfernt) -->
+<!-- SLIDE 8: Was ich gelernt habe – Gesamtrückblick S1–S3 (NEU, AP-25) -->
 <div class="slide" id="slide-8">
+  <div class="slide-header phase-close">
+    <span class="session-label">Gesamtr&uuml;ckblick &nbsp;·&nbsp; S1&ndash;S3</span>
+    <span class="slide-num">9 / 11</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Was ich gelernt habe</div>
+    <div class="slide-subtitle">Drei Sessions &ndash; meine Erkenntnisse</div>
+    <div style="margin-top: 12px;">
+      <div style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #0D6E6E; margin-bottom: 6px;">Session 1 &ndash; TWiG &amp; Flussmetriken</div>
+      <div class="learned-item">
+        <span class="learned-check" style="color: #0D6E6E;">&#10003;</span>
+        <span class="learned-text"><strong>WIP-Limits wirken direkt auf die Cycle Time</strong> &ndash; Little&rsquo;s Law: CT = WIP &divide; Throughput. Weniger gleichzeitig in Arbeit &rarr; schnellerer Durchfluss.</span>
+      </div>
+      <div class="learned-item">
+        <span class="learned-check" style="color: #0D6E6E;">&#10003;</span>
+        <span class="learned-text"><strong>Vier Flussmetriken:</strong> Cycle Time, Work Item Age, Throughput, WIP &ndash; sie machen sichtbar, was im Fluss passiert.</span>
+      </div>
+      <div style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #1F4E79; margin-top: 14px; margin-bottom: 6px;">Session 2 &ndash; Workflow definieren</div>
+      <div class="learned-item">
+        <span class="learned-check" style="color: #1F4E79;">&#10003;</span>
+        <span class="learned-text"><strong>Mein Workflow hat sechs Dimensionen:</strong> Werteinheit, Start &amp; Ende (Commitment Point), Spalten&nbsp;/&nbsp;Stages, WIP-Steuerung, Exit Criteria, Prognose&nbsp;(SLE).</span>
+      </div>
+      <div class="learned-item">
+        <span class="learned-check" style="color: #1F4E79;">&#10003;</span>
+        <span class="learned-text"><strong>Fremde Workflows sch&auml;rfen den eigenen Blick</strong> &ndash; Peer-Review macht implizites Wissen explizit.</span>
+      </div>
+      <div style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #1A5C38; margin-top: 14px; margin-bottom: 6px;">Session 3 &ndash; Verbesserung &amp; Commitment</div>
+      <div class="learned-item">
+        <span class="learned-check" style="color: #1A5C38;">&#10003;</span>
+        <span class="learned-text"><strong>Blocker benennen und als Team adressieren</strong> &ndash; Wer ist verantwortlich? Ab wann eskalieren? Was passiert wenn nicht?</span>
+      </div>
+      <div class="learned-item">
+        <span class="learned-check" style="color: #1A5C38;">&#10003;</span>
+        <span class="learned-text"><strong>Verbesserung braucht ein Erfolgskriterium:</strong> Was w&uuml;rde ich meinem Team vorschlagen &ndash; und woran w&uuml;rden wir in X Wochen erkennen, dass es wirkt?</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: Danke (NEU, AP-26) -->
+<div class="slide" id="slide-9">
+  <div class="slide-header phase-close">
+    <span class="session-label">Abschluss &nbsp;·&nbsp; Kanban-Schulung lise</span>
+    <span class="slide-num">10 / 11</span>
+  </div>
+  <div class="slide-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 360px; text-align: center;">
+    <div style="font-size: 72px; line-height: 1; margin-bottom: 16px;">&#128591;</div>
+    <div style="font-size: 38px; font-weight: bold; color: #4B2D7F; margin-bottom: 8px;">Danke.</div>
+    <div style="font-size: 16px; color: #555; margin-bottom: 24px; max-width: 520px;">Ihr habt drei Sessions mitgemacht &ndash; und euren Workflow sichtbar gemacht. Das ist keine Kleinigkeit.</div>
+    <div class="quote-box" style="max-width: 560px; text-align: left;">
+      Kanban verbessert sich nicht von selbst. Es verbessert sich, wenn Menschen es aktiv gestalten &ndash; jeden Sprint ein bisschen klarer, jeden Monat ein bisschen fl&uuml;ssiger.
+      <cite>&#8212; Schulungs-Credo lise Kanban</cite>
+    </div>
+    <div class="card teal" style="max-width: 560px; margin-top: 20px; text-align: left;">
+      <div class="card-title">Alle Materialien</div>
+      <p>Slides, Handout, Miro-Framestruktur und Links:<br/><strong>iulius-cataphractus.github.io/lise-Kanban-Schulung</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: Quick Reference -->
+<div class="slide" id="slide-10">
   <div class="slide-header phase-info">
     <span class="session-label">Quick Reference &nbsp;·&nbsp; S3 im &#220;berblick</span>
-    <span class="slide-num">9 / 9</span>
+    <span class="slide-num">11 / 11</span>
   </div>
   <div class="slide-body">
     <div class="slide-title">S3 auf einen Blick</div>
@@ -354,11 +422,13 @@
       <tbody>
         <tr style="background: #F7FAFC;"><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Check-in</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">0&#8211;5'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Commitment + Interview-Erkenntnisse aus S2</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
         <tr><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Blocker</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">5&#8211;15'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Deming + 2 TN berichten + 3 Kernfragen</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
-        <tr style="background: #F7FAFC;"><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Einzel-Retro</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">15&#8211;30'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">3 Fragen, stille Einzelarbeit</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
+        <tr style="background: #F7FAFC;"><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Einzel-Retro</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">15&#8211;30'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">3 Fragen (Frage 2 opt. mit Flussmetriken), stille Einzelarbeit</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
         <tr><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Tandems</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">30&#8211;50'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Sch&auml;rfen &ndash; systemische Fragen, Team-Framing</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
         <tr style="background: #F7FAFC;"><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Commitment</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">50&#8211;57'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Team-Vorschlag + Erfolgskriterium</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#10003; Commitment</td></tr>
         <tr><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Feedback</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">57&#8211;59'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">2 Stickies direkt in Session</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
-        <tr style="background: #F7FAFC;"><td style="padding: 6px 10px;">Ausblick</td><td style="padding: 6px 10px;">59&#8211;60'</td><td style="padding: 6px 10px;">Linksammlung + n&#228;chste Schritte</td><td style="padding: 6px 10px;">&#8211;</td></tr>
+        <tr style="background: #F7FAFC;"><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Ausblick</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">59&#8211;60'</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Linksammlung + n&#228;chste Schritte</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
+        <tr><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Was ich gelernt habe</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">Gesamtr&uuml;ckblick S1&ndash;S3 (6 Erkenntnisse)</td><td style="padding: 6px 10px; border-bottom: 1px solid #E0E8F0;">&#8211;</td></tr>
+        <tr style="background: #F7FAFC;"><td style="padding: 6px 10px;">Danke</td><td style="padding: 6px 10px;">&#8211;</td><td style="padding: 6px 10px;">Abschluss der Schulungsreihe + GitHub Pages Link</td><td style="padding: 6px 10px;">&#8211;</td></tr>
       </tbody>
     </table>
     <div class="cols cols-3" style="margin-top: 16px;">
@@ -374,7 +444,7 @@
 <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
 <div class="nav">
   <button id="prevBtn" onclick="navigate(-1)" disabled>&#8592;</button>
-  <span class="counter" id="counter">1 / 9</span>
+  <span class="counter" id="counter">1 / 11</span>
   <button id="nextBtn" onclick="navigate(1)">&#8594;</button>
   <span class="key-hint">&nbsp;&#8592; &#8594;</span>
 </div>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S1 – Flow erleben: TWiG-Simulation &amp; Flussmetriken | Kanban-Schulung lise v5</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: Arial, Helvetica, sans-serif; background: #0d1117; color: #1a1a2e; }
+  .stage { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding: 20px 20px 80px; }
+  .slide { display: none; width: 100%; max-width: 960px; background: #fff; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); overflow: hidden; animation: fadeIn 0.2s ease; }
+  .slide.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .slide-header { padding: 14px 28px 12px; display: flex; justify-content: space-between; align-items: baseline; }
+  .slide-header .session-label { font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; }
+  .slide-header .slide-num { font-size: 12px; opacity: 0.6; }
+  .phase-intro   { background: #0D6E6E; color: #fff; }
+  .phase-twig    { background: #1A5C38; color: #fff; }
+  .phase-metrics { background: #1F4E79; color: #fff; }
+  .phase-bridge  { background: #4B2D7F; color: #fff; }
+  .phase-info    { background: #404040; color: #fff; }
+  .phase-pause   { background: #856404; color: #fff; }
+  .slide-body { padding: 28px 36px 32px; flex: 1; }
+  .slide-title { font-size: 26px; font-weight: bold; color: #1F4E79; margin-bottom: 6px; line-height: 1.2; }
+  .slide-subtitle { font-size: 14px; color: #666; margin-bottom: 22px; font-style: italic; }
+  .timer { display: inline-block; background: #D6E4F0; color: #1F4E79; font-weight: bold; font-size: 13px; padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+  .timer.green { background: #D6EAD9; color: #1A5C38; }
+  .timer.warn  { background: #FFF3CD; color: #856404; }
+  .timer.purp  { background: #EBE0FF; color: #4B2D7F; }
+  .cols { display: grid; gap: 20px; margin-top: 8px; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card { border-left: 5px solid #1F4E79; background: #F7FAFC; padding: 16px 18px; border-radius: 0 6px 6px 0; }
+  .card.green  { border-color: #1A5C38; background: #F0F8F2; }
+  .card.teal   { border-color: #0D6E6E; background: #F0F8F8; }
+  .card.purple { border-color: #4B2D7F; background: #F5F0FF; }
+  .card.gray   { border-color: #888; background: #F8F8F8; }
+  .card.warn   { border-color: #c0392b; background: #FEF5F5; }
+  .card.amber  { border-color: #d4a017; background: #FFFDE7; }
+  .card-title { font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; color: #1F4E79; margin-bottom: 8px; }
+  .card.green  .card-title { color: #1A5C38; }
+  .card.teal   .card-title { color: #0D6E6E; }
+  .card.purple .card-title { color: #4B2D7F; }
+  .card.gray   .card-title { color: #555; }
+  .card.warn   .card-title { color: #c0392b; }
+  .card.amber  .card-title { color: #856404; }
+  p { font-size: 15px; line-height: 1.6; color: #222; margin-bottom: 8px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: #1F4E79; }
+  ul { padding-left: 20px; margin: 6px 0; }
+  li { font-size: 15px; line-height: 1.7; color: #222; }
+  li + li { margin-top: 2px; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; padding: 6px 0; border-bottom: 1px solid #eee; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li .num { width: 22px; height: 22px; background: #1F4E79; color: #fff; font-weight: bold; font-size: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .instruction { background: #EEF4FB; border: 1px solid #B0CCE6; border-radius: 6px; padding: 14px 18px; font-size: 15px; line-height: 1.6; color: #1a1a2e; font-style: italic; margin: 12px 0; }
+  .big-num { font-size: 48px; font-weight: bold; color: #1F4E79; line-height: 1; }
+  .big-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 2px; }
+  .metric-pill { display: inline-block; background: #1F4E79; color: #fff; font-weight: bold; font-size: 13px; padding: 5px 14px; border-radius: 20px; margin: 3px; }
+  .metric-pill.green { background: #1A5C38; }
+  .metric-pill.teal  { background: #0D6E6E; }
+  .metric-pill.purp  { background: #4B2D7F; }
+  .timeline { display: flex; gap: 0; margin: 16px 0; overflow: hidden; border-radius: 4px; }
+  .timeline-item { flex: 1; padding: 8px 4px; text-align: center; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; }
+  hr { border: none; border-top: 1px solid #E0E8F0; margin: 16px 0; }
+  .progress-wrap { position: fixed; bottom: 0; left: 0; width: 100%; height: 4px; background: #333; z-index: 100; }
+  .progress-bar { height: 100%; background: #0D6E6E; transition: width 0.3s ease; }
+  .nav { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; z-index: 200; background: rgba(0,0,0,0.75); padding: 8px 16px; border-radius: 30px; backdrop-filter: blur(4px); }
+  .nav button { background: #fff; color: #1a1a2e; border: none; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background 0.15s; font-weight: bold; }
+  .nav button:hover { background: #D6E4F0; }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .nav .counter { color: #ccc; font-size: 13px; min-width: 60px; text-align: center; }
+  .key-hint { color: #888; font-size: 11px; }
+  /* === v5.1 Ergaenzungen === */
+  .todo-check { list-style: none; padding: 0; margin-top: 10px; }
+  .todo-check li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; padding: 10px 0; border-bottom: 1px solid #E0EEE8; color: #222; line-height: 1.5; }
+  .todo-check li:last-child { border-bottom: none; }
+  .todo-check li::before { content: '\2610'; font-size: 22px; color: #0D6E6E; flex-shrink: 0; line-height: 1.1; }
+  .emoji-row { display: flex; gap: 16px; justify-content: center; margin: 20px 0 12px; }
+  .emoji-option { display: flex; flex-direction: column; align-items: center; gap: 8px; background: #F7FAFC; border: 2px solid #E0E8F0; border-radius: 12px; padding: 18px 28px; }
+  .emoji-big { font-size: 44px; line-height: 1; }
+  .emoji-label { font-size: 14px; font-weight: bold; color: #444; }
+  .question-center { font-size: 20px; font-weight: bold; color: #1F4E79; text-align: center; line-height: 1.4; padding: 18px 20px; background: #EEF4FB; border-radius: 8px; border: 1px solid #B0CCE6; margin-bottom: 4px; }
+  .law-box { background: #1A5C38; color: #fff; border-radius: 8px; padding: 20px 24px; margin: 14px 0; text-align: center; }
+  .law-formula { font-size: 28px; font-weight: bold; font-family: 'Courier New', monospace; margin: 8px 0 4px; }
+  .law-sub { font-size: 12px; opacity: 0.75; letter-spacing: 0.5px; }
+  .law-plain { font-size: 15px; margin-top: 10px; opacity: 0.9; line-height: 1.5; }
+  .debrief-q { display: flex; align-items: flex-start; gap: 14px; padding: 13px 0; border-bottom: 1px solid #E8F4E8; }
+  .debrief-q:last-child { border-bottom: none; }
+  .debrief-num { width: 28px; height: 28px; background: #1A5C38; color: #fff; font-weight: bold; font-size: 13px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .debrief-text strong { display: block; font-size: 16px; color: #1A5C38; margin-bottom: 3px; }
+  .debrief-text em { font-size: 13px; color: #555; font-style: normal; }
+  .bridge-q { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #EBE0FF; }
+  .bridge-q:last-child { border-bottom: none; }
+  .bridge-num { width: 28px; height: 28px; color: #fff; font-weight: bold; font-size: 13px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .bridge-text strong { display: block; font-size: 15px; color: #2a1a5e; margin-bottom: 4px; }
+  .bridge-text em { font-size: 13px; color: #666; font-style: normal; }
+  .learned-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #E0EEE8; }
+  .learned-item:last-child { border-bottom: none; }
+  .learned-check { font-size: 20px; color: #1A5C38; flex-shrink: 0; line-height: 1.4; font-weight: bold; }
+  .learned-text { font-size: 15px; color: #222; line-height: 1.6; }
+  @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  @media print { body { background: white; } .nav, .progress-wrap { display: none !important; } .stage { padding: 0; } .slide { display: flex !important; page-break-after: always; box-shadow: none; border: 1px solid #ccc; max-width: 100%; } .slide:last-child { page-break-after: auto; } }
+</style>
+</head>
+<body>
+<div class="stage">
+
+<!-- SLIDE 0: Titel -->
+<div class="slide active" id="slide-0">
+  <div class="slide-header phase-intro">
+    <span class="session-label">Kanban-Schulung lise | Session 1</span>
+    <span class="slide-num">1 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Session 1</div>
+    <div style="font-size: 30px; font-weight: bold; color: #1F4E79; margin-bottom: 10px;">Flow erleben: TWiG-Simulation &amp; Flussmetriken</div>
+    <div class="slide-subtitle">90 Minuten &nbsp;&middot;&nbsp; Remote (Video + Miro + TWiG) &nbsp;&middot;&nbsp; Kanban-Schulung lise v5</div>
+    <div class="timeline">
+      <div class="timeline-item" style="background:#0D6E6E; color:#fff;">Check-in<br/>0&ndash;5'</div>
+      <div class="timeline-item" style="background:#1A5C38; color:#fff;">TWiG R1<br/>5&ndash;28'</div>
+      <div class="timeline-item" style="background:#1A5C38; color:#fff;">TWiG R2<br/>28&ndash;45'</div>
+      <div class="timeline-item" style="background:#1F4E79; color:#fff;">Metriken<br/>45&ndash;51'</div>
+      <div class="timeline-item" style="background:#1F4E79; color:#fff;">Scatterplot<br/>51&ndash;63'</div>
+      <div class="timeline-item" style="background:#856404; color:#fff;">Pause<br/>63&ndash;68'</div>
+      <div class="timeline-item" style="background:#4B2D7F; color:#fff;">Bridging<br/>68&ndash;78'</div>
+      <div class="timeline-item" style="background:#4B2D7F; color:#fff;">Ausblick<br/>78&ndash;90'</div>
+    </div>
+    <div style="margin-top: 20px;">
+      <div style="font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; color: #0D6E6E; margin-bottom: 4px;">Das nimmst du heute mit:</div>
+      <ul class="todo-check">
+        <li>WIP-Limits als Flusshebel erleben &ndash; durch die TWiG-Simulation</li>
+        <li>Die vier Flussmetriken benennen: Cycle Time, Work Item Age, Throughput, WIP</li>
+        <li>Einen Scatterplot lesen und eine Prognose (SLE) ableiten</li>
+        <li>Eine Verbindung zum eigenen Arbeitsalltag formulieren</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 1: Check-in -->
+<div class="slide" id="slide-1">
+  <div class="slide-header phase-intro">
+    <span class="session-label">Check-in &nbsp;&middot;&nbsp; 0&ndash;5 Min</span>
+    <span class="slide-num">2 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Check-in</div>
+    <div class="slide-subtitle">Ankommen &amp; Startpunkt setzen</div>
+    <span class="timer">&#9201; 5 Minuten</span>
+    <div class="question-center">
+      Wenn du an deinen Arbeitsalltag denkst &ndash;<br/>wie oft wei&szlig;t du, <strong>wann etwas fertig sein wird</strong>?
+    </div>
+    <div class="emoji-row">
+      <div class="emoji-option">
+        <div class="emoji-big">&#128077;</div>
+        <div class="emoji-label">Meistens</div>
+      </div>
+      <div class="emoji-option">
+        <div class="emoji-big">&#128073;</div>
+        <div class="emoji-label">Manchmal</div>
+      </div>
+      <div class="emoji-option">
+        <div class="emoji-big">&#128078;</div>
+        <div class="emoji-label">Selten</div>
+      </div>
+    </div>
+    <p style="text-align: center; color: #666; font-size: 14px;">&#8594; Daumen-Emoji im Chat oder Geste in die Kamera &ndash; alle gleichzeitig</p>
+    <p style="text-align: center; font-size: 14px; margin-top: 10px; color: #1F4E79;">Prognostizierbarkeit ist das Kernthema dieser Session. Heute erleben wir, was sie beeinflusst.</p>
+  </div>
+</div>
+
+<!-- SLIDE 2: TWiG R1 – Briefing -->
+<div class="slide" id="slide-2">
+  <div class="slide-header phase-twig">
+    <span class="session-label">TWiG Runde 1 &nbsp;&middot;&nbsp; 5&ndash;28 Min</span>
+    <span class="slide-num">3 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">TWiG &ndash; Runde 1: Briefing</div>
+    <div class="slide-subtitle">WIP-Konfiguration 4-6-4 &nbsp;&middot;&nbsp; Spieldauer ca. 15 Min</div>
+    <span class="timer green">&#9201; 23 Minuten gesamt (Spiel ~15 Min + Debriefing ~8 Min)</span>
+    <div class="cols cols-2">
+      <div class="card green">
+        <div class="card-title">Was ihr jetzt tut</div>
+        <ul>
+          <li>TWiG-Link im Chat: <strong>analytics.actionableagile.com/twig</strong></li>
+          <li>&#9654; <strong>&bdquo;Walker verteilt&ldquo; aktivieren</strong> &ndash; Haken setzen, bevor das Spiel startet</li>
+          <li>WIP-Konfiguration: <strong>4 &ndash; 6 &ndash; 4</strong> (voreingestellt lassen)</li>
+          <li>Ziel: So viele Items fertigstellen wie m&ouml;glich</li>
+          <li>Keine weiteren Erkl&auml;rungen &ndash; einfach spielen</li>
+        </ul>
+      </div>
+      <div class="card gray">
+        <div class="card-title">Spielmechanik</div>
+        <ul>
+          <li>Ab 3 Arbeitern: Jeder <em>zus&auml;tzliche</em> Arbeiter leistet weniger &ndash; die ersten zwei arbeiten normal weiter</li>
+          <li>Arbeiter mit fremder Farbe leisten nur 50 % (Kontextwechsel-Effekt)</li>
+          <li>Arbeitsergebnisse per 6-seitigem W&uuml;rfel ermittelt</li>
+        </ul>
+      </div>
+    </div>
+    <div class="instruction" style="margin-top: 14px;">
+      <strong>Wichtig:</strong> Browserfenster nach der Runde <strong>NICHT schlie&szlig;en</strong> &ndash; die Scatterplot-Daten werden sp&auml;ter gebraucht.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: TWiG R1 – Debriefing (NEU) -->
+<div class="slide" id="slide-3">
+  <div class="slide-header phase-twig">
+    <span class="session-label">TWiG Runde 1 &nbsp;&middot;&nbsp; Debriefing</span>
+    <span class="slide-num">4 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">TWiG R1 &ndash; Debriefing</div>
+    <div class="slide-subtitle">Was habt ihr beobachtet?</div>
+    <span class="timer green">&#9201; 8 Minuten</span>
+    <div style="margin-top: 8px;">
+      <div class="debrief-q">
+        <span class="debrief-num">1</span>
+        <div class="debrief-text">
+          <strong>Wie viele Items wurden fertig?</strong>
+          <em>Zahl kurz in den Chat tippen. Spannbreite benennen.</em>
+        </div>
+      </div>
+      <div class="debrief-q">
+        <span class="debrief-num">2</span>
+        <div class="debrief-text">
+          <strong>Wie hat sich das Spielen angef&uuml;hlt?</strong>
+          <em>1&ndash;2 Worte, kurze Runde. Kein Kommentar dazu.</em>
+        </div>
+      </div>
+      <div class="debrief-q">
+        <span class="debrief-num">3</span>
+        <div class="debrief-text">
+          <strong>Wo lagen die Engp&auml;sse?</strong>
+          <em>Was hat den Fluss verlangsamt?</em>
+        </div>
+      </div>
+    </div>
+    <div class="card amber" style="margin-top: 16px;">
+      <div class="card-title">Noch keine Aufl&ouml;sung</div>
+      <p>Die Pointe kommt nach Runde 2. Erst spielen, dann verstehen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: TWiG R2 – Briefing -->
+<div class="slide" id="slide-4">
+  <div class="slide-header phase-twig">
+    <span class="session-label">TWiG Runde 2 &nbsp;&middot;&nbsp; 28&ndash;45 Min</span>
+    <span class="slide-num">5 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">TWiG &ndash; Runde 2: Briefing</div>
+    <div class="slide-subtitle">Freie Konfiguration &nbsp;&middot;&nbsp; Empfehlung: 2-2-2</div>
+    <span class="timer green">&#9201; 17 Minuten gesamt (Spiel ~10 Min + Kernlearning ~7 Min)</span>
+    <div class="card green" style="margin-bottom: 14px;">
+      <div class="card-title">Was ihr jetzt tut</div>
+      <p>W&auml;hlt eure Konfiguration <strong>komplett frei</strong>. Empfehlung zum Einstieg: <strong>2&ndash;2&ndash;2</strong>.</p>
+      <p style="margin-top: 8px; font-size: 13px;">Tipp: WiP-Limits k&ouml;nnen in TWiG w&auml;hrend des Spiels ge&auml;ndert werden &ndash; Haken bei &bdquo;&auml;nderbar&ldquo; setzen.</p>
+    </div>
+    <div class="instruction">
+      Gleiche Aufgabe wie in Runde 1: So viele Items fertigstellen wie m&ouml;glich. Ihr entscheidet die Konfiguration &ndash; komplett frei.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: TWiG R2 – Kernlearning: Little's Law (NEU) -->
+<div class="slide" id="slide-5">
+  <div class="slide-header phase-twig">
+    <span class="session-label">TWiG Runde 2 &nbsp;&middot;&nbsp; Kernlearning</span>
+    <span class="slide-num">6 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">TWiG R2 &ndash; Kernlearning</div>
+    <div class="slide-subtitle">Was war anders?</div>
+    <span class="timer green">&#9201; 7 Minuten</span>
+    <div class="cols cols-2" style="margin-bottom: 16px;">
+      <div class="card green">
+        <div class="card-title">Was war anders &ndash; am Ergebnis?</div>
+        <p>Wie viele Items in R2 vs. R1? Gr&ouml;&szlig;ere oder kleinere Spannbreite?</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Was war anders &ndash; am Gef&uuml;hl?</div>
+        <p>Kontrolle? Stress? Fluss? Ein Wort reicht.</p>
+      </div>
+    </div>
+    <div class="law-box">
+      <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; margin-bottom: 6px;">Kernlearning</div>
+      <div class="law-formula">CT = WIP &divide; Throughput</div>
+      <div class="law-sub">Little&rsquo;s Law</div>
+      <div class="law-plain">Je weniger Items gleichzeitig in Arbeit sind (WIP), desto k&uuml;rzer die Durchlaufzeit (Cycle Time).<br/>Das ist kein Gef&uuml;hl &ndash; das ist Mathematik.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: Was mir die Metriken sagen -->
+<div class="slide" id="slide-6">
+  <div class="slide-header phase-metrics">
+    <span class="session-label">Flussmetriken &nbsp;&middot;&nbsp; 45&ndash;51 Min</span>
+    <span class="slide-num">7 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Die vier Flussmetriken</div>
+    <div class="slide-subtitle">Was mir die Metriken sagen</div>
+    <span class="timer">&#9201; 6 Minuten</span>
+    <div class="instruction">
+      Ich gebe euch die Namen &ndash; ihr sagt mir, wo ihr sie im Spiel gesehen habt.
+    </div>
+    <div style="margin: 12px 0 16px; text-align: center;">
+      <span class="metric-pill">Cycle Time</span>
+      <span class="metric-pill green">Work Item Age</span>
+      <span class="metric-pill teal">Throughput</span>
+      <span class="metric-pill purp">WIP</span>
+    </div>
+    <div class="cols cols-2">
+      <div class="card teal">
+        <div class="card-title">Was jede Metrik mir sagt</div>
+        <ul>
+          <li><strong>WIP</strong> &ndash; Wie viele Items sind gerade gleichzeitig in Arbeit?</li>
+          <li><strong>Cycle Time</strong> &ndash; Wie lange hat ein Item von Start bis Fertig gebraucht?</li>
+          <li><strong>Throughput</strong> &ndash; Wie viele Items wurden pro Zeiteinheit fertiggestellt?</li>
+          <li><strong>Work Item Age</strong> &ndash; Wie lange ist ein Item schon in Bearbeitung (noch nicht abgeschlossen)?</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-title">Jetzt: Flussmetriken-Handout &ouml;ffnen</div>
+        <p>Link im Miro-Board oder in der Einladung &ndash; jetzt &ouml;ffnen und offen lassen. Es ist euer Referenzdokument f&uuml;r den n&auml;chsten Abschnitt.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: Scatterplot-Analyse -->
+<div class="slide" id="slide-7">
+  <div class="slide-header phase-metrics">
+    <span class="session-label">Scatterplot-Analyse &nbsp;&middot;&nbsp; 51&ndash;63 Min</span>
+    <span class="slide-num">8 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Scatterplot-Analyse</div>
+    <div class="slide-subtitle">Cycle Time, Prognose (SLE) &ndash; was ihr jetzt seht</div>
+    <span class="timer">&#9201; 12 Minuten</span>
+    <div class="cols cols-2">
+      <div>
+        <div class="card">
+          <div class="card-title">Was ihr seht: Der Scatterplot</div>
+          <ul>
+            <li>Jeder Punkt = ein abgeschlossenes Work Item</li>
+            <li>X-Achse: Zeitpunkt der Fertigstellung</li>
+            <li>Y-Achse: <strong>Cycle Time</strong> (wie lange es gedauert hat)</li>
+            <li>Ausrei&szlig;er: Was hat das Item verlangsamt?</li>
+          </ul>
+        </div>
+        <div class="card teal" style="margin-top: 14px;">
+          <div class="card-title">Eure Prognose (SLE)</div>
+          <p>In 85 % der F&auml;lle war ein Item in <strong>X Minuten</strong> fertig.</p>
+          <p style="margin-top: 6px; font-size: 14px;"><em>&bdquo;Wir liefern in X Tagen &ndash; oder wir sprechen dar&uuml;ber.&ldquo;</em></p>
+        </div>
+      </div>
+      <div class="card green">
+        <div class="card-title">Alle vier Metriken am Scatterplot</div>
+        <ul>
+          <li><strong>Cycle Time</strong> &#10003; (gerade erkl&auml;rt)</li>
+          <li><strong>Work Item Age</strong> &ndash; Items, die noch nicht fertig sind: wie lange schon in Bearbeitung?</li>
+          <li><strong>Throughput</strong> &ndash; Wie viele Items pro Zeiteinheit wurden fertig?</li>
+          <li><strong>WIP</strong> &ndash; Alles zwischen Start und Ende: was ist gerade in Arbeit?</li>
+        </ul>
+        <p style="margin-top: 10px; font-size: 13px; color: #1A5C38;">&#8594; Vergleicht R1 und R2: Was &auml;ndert sich in den Metriken?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: Pause -->
+<div class="slide" id="slide-8">
+  <div class="slide-header phase-pause">
+    <span class="session-label">Pause &nbsp;&middot;&nbsp; 63&ndash;68 Min</span>
+    <span class="slide-num">9 / 13</span>
+  </div>
+  <div class="slide-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px;">
+    <div style="text-align: center; animation: breathe 3s ease-in-out infinite;">
+      <div style="font-size: 80px; line-height: 1;">&#9749;</div>
+      <div style="font-size: 52px; font-weight: bold; color: #856404; margin-top: 8px;">5'</div>
+      <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-top: 6px;">Pause &amp; Stretch</div>
+    </div>
+    <div class="card amber" style="max-width: 420px; text-align: center; margin-top: 24px;">
+      <p>Kamera aus &ndash; kurz aufstehen, Fenster auf, Wasser holen.<br/>Zur&uuml;ck in 5 Minuten.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: Bridging – aktivierende Fragen -->
+<div class="slide" id="slide-9">
+  <div class="slide-header phase-bridge">
+    <span class="session-label">Bridging &nbsp;&middot;&nbsp; 68&ndash;78 Min</span>
+    <span class="slide-num">10 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Bridging</div>
+    <div class="slide-subtitle">Vier Fragen &ndash; von der Simulation in euren Alltag</div>
+    <span class="timer purp">&#9201; 10 Minuten</span>
+    <div style="margin-top: 8px;">
+      <div class="bridge-q">
+        <span class="bridge-num" style="background: #1F4E79;">1</span>
+        <div class="bridge-text">
+          <strong>Was war der gr&ouml;&szlig;te Unterschied zwischen R1 (4-6-4) und R2 &ndash; im Ergebnis und im Gef&uuml;hl?</strong>
+          <em>&#8594; Cycle Time, Throughput, Stress &ndash; was habt ihr konkret beobachtet?</em>
+        </div>
+      </div>
+      <div class="bridge-q">
+        <span class="bridge-num" style="background: #1A5C38;">2</span>
+        <div class="bridge-text">
+          <strong>Wann merkt ihr in eurem Arbeitsalltag, dass etwas blockiert ist &ndash; und wer merkt es zuerst?</strong>
+          <em>&#8594; Im Spiel war jeder Blocker sofort sichtbar. Wie ist das auf eurem Board?</em>
+        </div>
+      </div>
+      <div class="bridge-q">
+        <span class="bridge-num" style="background: #4B2D7F;">3</span>
+        <div class="bridge-text">
+          <strong>Wann ist ein Ticket bei euch &bdquo;fertig&ldquo; f&uuml;r die n&auml;chste Spalte &ndash; sind alle einig dar&uuml;ber?</strong>
+          <em>&#8594; Im Spiel sind die &Uuml;bergangsregeln klar. In S2 definieren wir das f&uuml;r euren Workflow &ndash; als Exit Criteria.</em>
+        </div>
+      </div>
+      <div class="bridge-q">
+        <span class="bridge-num" style="background: #0D6E6E;">4</span>
+        <div class="bridge-text">
+          <strong>Wer entscheidet bei euch, welches Ticket als n&auml;chstes angefasst wird?</strong>
+          <em>&#8594; Pull statt Push: Arbeit ziehen, nicht schieben. Was passiert, wenn das implizit bleibt?</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: Beobachtungsauftrag -->
+<div class="slide" id="slide-10">
+  <div class="slide-header phase-bridge">
+    <span class="session-label">Beobachtungsauftrag &nbsp;&middot;&nbsp; 78&ndash;86 Min</span>
+    <span class="slide-num">11 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Beobachtungsauftrag</div>
+    <div class="slide-subtitle">Was werde ich ab jetzt anders sehen?</div>
+    <span class="timer purp">&#9201; 8 Minuten</span>
+    <div class="instruction">
+      Schreib einen Satz: <strong>Ich werde diese Woche beobachten, ob / wo / wie _______ in meinem Arbeitsalltag passiert.</strong>
+    </div>
+    <div class="cols cols-2" style="margin-top: 8px;">
+      <div class="card purple">
+        <div class="card-title">Beispiel-S&auml;tze</div>
+        <ul>
+          <li>Ich werde beobachten, wie viele Aufgaben bei uns gleichzeitig &bdquo;In Progress&ldquo; stehen.</li>
+          <li>Ich werde beobachten, wo Arbeit bei uns wartet &ndash; und auf wen.</li>
+          <li>Ich werde beobachten, ob wir wissen, wann etwas &bdquo;fertig&ldquo; ist.</li>
+        </ul>
+      </div>
+      <div class="card gray">
+        <div class="card-title">Beobachtung festhalten</div>
+        <ul>
+          <li>Jede:r liest den Satz kurz vor</li>
+          <li>Beobachtung im Miro-Board festhalten (dein Arbeitsbereich)</li>
+          <li>Diese Beobachtungen sind euer Material f&uuml;r Session 2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 11: Vorbereitung S2 -->
+<div class="slide" id="slide-11">
+  <div class="slide-header phase-bridge">
+    <span class="session-label">Vorbereitung S2 &nbsp;&middot;&nbsp; 86&ndash;90 Min</span>
+    <span class="slide-num">12 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Bis zur n&auml;chsten Session</div>
+    <div class="slide-subtitle">Vorbereitung S2 &ndash; Pflicht</div>
+    <span class="timer warn">&#9201; ca. 60 Min Aufwand zwischen den Sessions</span>
+    <div class="card purple" style="margin-bottom: 16px;">
+      <div class="card-title">Drei Aufgaben f&uuml;r Session 2</div>
+      <p>Alle drei sind Voraussetzung f&uuml;r die Teilnahme an S2:</p>
+      <ul style="margin-top: 8px;">
+        <li><strong>Kanban Guide lesen</strong> (~15 Min) &ndash; Link im Miro-Board und in der Einladung</li>
+        <li><strong>Eigenen Workflow skizzieren</strong> (~30 Min) &ndash; Wie arbeitet dein Team wirklich? Den Weg eines Arbeitsergebnisses von Anfang bis Ende. Nicht das Board abzeichnen &ndash; den echten Ablauf.</li>
+        <li><strong>Beobachtungsauftrag mitbringen</strong> (~15 Min) &ndash; Was hast du seit S1 beobachtet? Stichworte reichen.</li>
+      </ul>
+    </div>
+    <div class="cols cols-2">
+      <div class="card gray">
+        <div class="card-title">Format der Skizze</div>
+        <p>In Miro (dein Arbeitsbereich), auf Papier oder als Screenshot. Hauptsache: konkret und sichtbar.</p>
+      </div>
+      <div class="card warn">
+        <div class="card-title">Teilnahmebedingung S2</div>
+        <p>Wer ohne Workflow-Skizze erscheint, wird gebeten, die n&auml;chste Runde zu buchen. Die Session lebt vom Peer-Review.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12: Was ich gelernt habe (ersetzt Quick Reference) -->
+<div class="slide" id="slide-12">
+  <div class="slide-header phase-info">
+    <span class="session-label">Abschluss &nbsp;&middot;&nbsp; Session 1 im R&uuml;ckblick</span>
+    <span class="slide-num">13 / 13</span>
+  </div>
+  <div class="slide-body">
+    <div class="slide-title">Was ich gelernt habe</div>
+    <div class="slide-subtitle">Session 1 &ndash; meine Erkenntnisse</div>
+    <div style="margin-top: 16px;">
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>WIP-Limits wirken direkt auf die Cycle Time</strong> &ndash; Little&rsquo;s Law: CT = WIP &divide; Throughput. Je weniger gleichzeitig in Arbeit, desto schneller kommen Dinge durch.</span>
+      </div>
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>Es gibt vier Flussmetriken:</strong> Cycle Time, Work Item Age, Throughput, WIP &ndash; sie machen sichtbar, was im Fluss passiert.</span>
+      </div>
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>Ein Scatterplot macht Prognosen sichtbar:</strong> In 85 % der F&auml;lle war ein Item in X Tagen fertig &ndash; das ist eure Prognose (SLE).</span>
+      </div>
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>Arbeit braucht klare Regeln:</strong> Wann startet ein Item? Wann ist es fertig? Wann darf es weiterziehen? Das definieren wir in Session 2.</span>
+      </div>
+    </div>
+    <div class="instruction" style="margin-top: 20px;">
+      <strong>Mein Beobachtungsauftrag bis S2:</strong> Ich werde beobachten, ob / wo / wie _______ in meinem Arbeitsalltag passiert.
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+<div class="nav">
+  <button id="prevBtn" onclick="navigate(-1)" disabled>&#8592;</button>
+  <span class="counter" id="counter">1 / 13</span>
+  <button id="nextBtn" onclick="navigate(1)">&#8594;</button>
+  <span class="key-hint">&nbsp;&larr; &rarr;</span>
+</div>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  function navigate(dir) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, current + dir));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+    document.getElementById('progressBar').style.width = ((current + 1) / total * 100) + '%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+  document.getElementById('progressBar').style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>

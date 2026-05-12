@@ -73,6 +73,11 @@
   .pipeline-stage { background: #F0F8F8; border: 2px solid #0D6E6E; border-radius: 6px; padding: 8px 14px; font-size: 13px; font-weight: bold; color: #0D6E6E; text-align: center; }
   .pipeline-stage.blocked { background: #FEF5F5; border-color: #c0392b; color: #c0392b; }
   .pipeline-arrow { font-size: 18px; color: #aaa; }
+  /* === v5.1 Ergaenzungen (AP-11) === */
+  .learned-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #D6E4F0; }
+  .learned-item:last-child { border-bottom: none; }
+  .learned-check { font-size: 20px; color: #1F4E79; flex-shrink: 0; line-height: 1.4; font-weight: bold; }
+  .learned-text { font-size: 15px; color: #222; line-height: 1.6; }
   @media print { body { background: white; } .nav, .progress-wrap { display: none !important; } .stage { padding: 0; } .slide { display: flex !important; page-break-after: always; box-shadow: none; border: 1px solid #ccc; max-width: 100%; } .slide:last-child { page-break-after: auto; } }
 </style>
 </head>
@@ -138,8 +143,9 @@
             <div class="pipeline-stage">Done</div>
           </div>
         </div>
-        <div class="card warn" style="margin-top: 14px;">
-          <div class="card-title">Eintrittscheck</div>
+        <!-- AP-06: card warn → card gray, Titel entschärft -->
+        <div class="card gray" style="margin-top: 14px;">
+          <div class="card-title">Kurzer Check</div>
           <p>Workflow-Skizze dabei? Kanban Guide gelesen? Beobachtung aus S1 im Miro?</p>
         </div>
       </div>
@@ -240,31 +246,38 @@
   </div>
 </div>
 
-<!-- SLIDE 4: Peer-Review – Vollständiger Partnerwechsel -->
+<!-- SLIDE 4: Peer-Review – Aufgabenanzeige (AP-51 + AP-31) -->
 <div class="slide" id="slide-4">
   <div class="slide-header phase-peer">
     <span class="session-label">Peer-Review l&auml;uft &nbsp;&middot;&nbsp; 18&ndash;46 Min</span>
     <span class="slide-num">5 / 9</span>
   </div>
-  <div class="slide-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 320px;">
-    <div style="text-align: center; margin-bottom: 24px;">
-      <div class="big-num">14</div>
-      <div class="big-label">Minuten pro Runde</div>
+  <div class="slide-body">
+    <div class="slide-title">Peer-Review l&auml;uft</div>
+    <div class="slide-subtitle">Person B &ndash; DoW-Checkliste &nbsp;&middot;&nbsp; 14 Minuten pro Runde</div>
+    <span class="timer phase">&#9201; 14 Minuten &nbsp;&middot;&nbsp; dann Partnerwechsel</span>
+    <ul class="checklist" style="margin-top: 4px;">
+      <li><span class="num">1</span><span><strong>Werteinheiten:</strong> Was genau flie&szlig;t durch dein Board?</span></li>
+      <!-- AP-51 Fix: Commitment Point ergänzt -->
+      <li><span class="num">2</span><span><strong>Start/Ende (Commitment Point):</strong> Wann wird ein Item am <em>Commitment Point</em> gestartet &ndash; und wann gilt es als fertig?</span></li>
+      <li><span class="num">3</span><span><strong>Spalten / Stages:</strong> Gibt es Wartezeiten als eigene Spalten?</span></li>
+      <li><span class="num">4</span><span><strong>WIP-Steuerung:</strong> Wie viele Items d&uuml;rfen gleichzeitig in Bearbeitung sein?</span></li>
+      <li><span class="num">5</span><span><strong>Exit Criteria:</strong> Wann darf ein Item weiterziehen?</span></li>
+      <li><span class="num">6</span><span><strong>Prognose (SLE):</strong> Was ist eure realistische Durchlaufzeit?</span></li>
+    </ul>
+    <!-- AP-31: Board-Formulierung präzisiert -->
+    <div class="instruction" style="margin-top: 16px;">
+      &Ouml;ffnet den <strong>Miro-Bereich der Person, deren Workflow ihr gerade reviewt</strong> &ndash; nicht euren eigenen. Erg&auml;nzungen und offene Fragen direkt dort als Sticky hinterlassen.
     </div>
-    <div class="cols cols-2" style="width: 100%; max-width: 620px;">
-      <div class="card green" style="text-align: center; padding: 20px;">
-        <div style="font-size: 32px; margin-bottom: 4px;">&#x1F7E2;</div>
-        <div style="font-weight: bold; font-size: 16px;">Runde 1</div>
-        <p>A erkl&auml;rt<br/>B fragt (DoW-Checkliste)</p>
+    <div class="cols cols-2" style="margin-top: 14px;">
+      <div class="card green">
+        <div class="card-title">Runde 1</div>
+        <p>A erkl&auml;rt &nbsp;&middot;&nbsp; B fragt (DoW-Checkliste) &nbsp;&middot;&nbsp; 14 Min</p>
       </div>
-      <div class="card" style="text-align: center; padding: 20px;">
-        <div style="font-size: 32px; margin-bottom: 4px;">&#x1F501;</div>
-        <div style="font-weight: bold; font-size: 16px;">Runde 2</div>
-        <p><strong>Komplett neuer Partner</strong><br/>Jede:r sieht jetzt einen anderen Workflow</p>
+      <div class="card">
+        <div class="card-title">Runde 2 &ndash; komplett neuer Partner</div>
+        <p>Jede:r reviewt einen anderen Workflow &nbsp;&middot;&nbsp; 14 Min</p>
       </div>
-    </div>
-    <div class="instruction" style="max-width: 600px; margin-top: 20px;">
-      Arbeitet direkt im <strong>Miro-Arbeitsbereich der anderen Person</strong>. Erg&auml;nzungen und offene Fragen als Sticky hinterlassen.
     </div>
   </div>
 </div>
@@ -373,76 +386,35 @@
   </div>
 </div>
 
-<!-- SLIDE 8: Quick Reference -->
+<!-- SLIDE 8: Was ich gelernt habe (AP-11 – ersetzt Quick Reference) -->
 <div class="slide" id="slide-8">
   <div class="slide-header phase-info">
-    <span class="session-label">Quick Reference &nbsp;&middot;&nbsp; Session 2 im &Uuml;berblick</span>
+    <span class="session-label">Abschluss &nbsp;&middot;&nbsp; Session 2 im R&uuml;ckblick</span>
     <span class="slide-num">9 / 9</span>
   </div>
   <div class="slide-body">
-    <div class="slide-title">S2 auf einen Blick</div>
-    <div class="slide-subtitle">Ablauf, Zeiten, Materialien</div>
-    <table style="width:100%; border-collapse: collapse; font-size: 14px; margin-top: 8px;">
-      <thead>
-        <tr style="background: #1F4E79; color: #fff;">
-          <th style="padding: 8px 12px; text-align: left;">Phase</th>
-          <th style="padding: 8px 12px; text-align: left;">Zeit</th>
-          <th style="padding: 8px 12px; text-align: left;">Was passiert</th>
-          <th style="padding: 8px 12px; text-align: left;">Miro</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="background: #F7FAFC;">
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Check-in</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">0&ndash;8'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">60 Sek. still → Sticky → 3&ndash;4 vorlesen + Sch&auml;tzfrage</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
-        </tr>
-        <tr>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Kurzinput DoW</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">8&ndash;18'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">6 Dimensionen + Selbst-Check in Miro</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
-        </tr>
-        <tr style="background: #F7FAFC;">
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Peer-Review R1</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">18&ndash;32'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">A erkl&auml;rt, B fragt (DoW-Checkliste)</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
-        </tr>
-        <tr>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Peer-Review R2</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">32&ndash;46'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;"><strong>Komplett neuer Partner</strong> &ndash; anderer Workflow</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
-        </tr>
-        <tr style="background: #F7FAFC;">
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Debriefing</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">46&ndash;56'</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">TNs clustern selbst + 3 Leitfragen</td>
-          <td style="padding: 7px 12px; border-bottom: 1px solid #E0E8F0;">Miro-Board</td>
-        </tr>
-        <tr>
-          <td style="padding: 7px 12px;">Abschluss</td>
-          <td style="padding: 7px 12px;">56&ndash;60'</td>
-          <td style="padding: 7px 12px;">Konjunktiv-Commitment + Interview-Auftrag S3</td>
-          <td style="padding: 7px 12px;">&ndash;</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="cols cols-3" style="margin-top: 16px;">
-      <div class="card gray" style="text-align:center;">
-        <div class="big-num" style="font-size: 32px;">6</div>
-        <div class="big-label">DoW-Dimensionen</div>
+    <div class="slide-title">Was ich gelernt habe</div>
+    <div class="slide-subtitle">Session 2 &ndash; meine Erkenntnisse</div>
+    <div style="margin-top: 16px;">
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>Ein Workflow hat sechs Dimensionen</strong> &ndash; Werteinheiten, Start/Ende, Spalten/Stages, WIP-Steuerung, Exit Criteria, Prognose (SLE). Ich wei&szlig; jetzt, welche bei mir fehlen.</span>
       </div>
-      <div class="card green" style="text-align:center;">
-        <div class="big-num" style="font-size: 32px;">2&times;14'</div>
-        <div class="big-label">Peer-Review Runden</div>
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>Peer-Review macht Implizites sichtbar:</strong> Was ich selbst nicht erkl&auml;ren kann, ist noch nicht definiert &ndash; und damit auch nicht steuerbar.</span>
       </div>
-      <div class="card" style="text-align:center;">
-        <div class="big-num" style="font-size: 32px;">60'</div>
-        <div class="big-label">Session gesamt</div>
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>Exit Criteria</strong> entscheiden, wann Arbeit wirklich weiterflie&szlig;en darf &ndash; ohne sie entstehen &Uuml;bergabe-Blockaden, die niemand sieht.</span>
       </div>
+      <div class="learned-item">
+        <span class="learned-check">&#10003;</span>
+        <span class="learned-text"><strong>Mein Workflow im Ist-Zustand</strong> ist jetzt skizziert &ndash; mit L&uuml;cken. Diese L&uuml;cken sind das Material f&uuml;r Session 3.</span>
+      </div>
+    </div>
+    <div class="instruction" style="margin-top: 20px;">
+      <strong>Mein Commitment bis S3:</strong> Ich f&uuml;hre ein kurzes Interview mit 2 Teammitgliedern und bringe 3 Erkenntnisse daraus mit.
     </div>
   </div>
 </div>

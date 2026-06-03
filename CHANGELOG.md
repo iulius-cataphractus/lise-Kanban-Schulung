@@ -1,71 +1,80 @@
-# Changelog
+# Changelog – Kanban-Schulung lise
 
-Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
-
-Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
+Alle nennenswerten Änderungen an diesem Schulungsformat. Format angelehnt an [Keep a Changelog](https://keepachangelog.com/).
 
 ---
 
-## [v5] – 2026-04-xx (Pilot abgeschlossen 2026-06-03)
+## [v5] – April 2026
 
 ### Geändert
-- Session-Reihenfolge getauscht: TWiG-Simulation jetzt S1 (war S2), Workflow-Definition jetzt S2 (war S1)
-- Einstiegsbarriere gesenkt: keine Vorbereitung vor S1 mehr nötig
-- TWiG-Rückbezüge in S2 eingebaut (Simulationserfahrung als Ankerpunkt)
-- Miro-Zonennamen durch teilnehmendentaugliche Begriffe ersetzt
-- Terminologie vereinheitlicht: Vorab-Auftrag → Vorbereitung
-- Facilitator-Guides von .docx auf .md migriert (v5)
-- Einladungstemplate auf .md migriert (v5)
-- Flussmetriken-Handout auf .md migriert (v5)
-- Facilitator-Checkliste in Facilitator-Guides integriert (Abschnitte „Vorbereitung vor Session" / „Nachbereitung nach Session")
-- Linksammlung auf GitHub Pages überführt
+- Session-Tausch: TWiG-Simulation ist jetzt S1 (war S2). Workflow-Definition ist jetzt S2 (war S1)
+- Einstiegsbarriere gesenkt: Keine Vorbereitung vor S1 nötig – Teilnehmende starten direkt mit der Simulation
+- TWiG-Rückbezüge in S2 eingebaut: Scatterplot und Metriken aus S1 als Anker für Workflow-Definition
+- Miro-Zonennamen ersetzt: „Zone A/B/C" → TN-taugliche Begriffe („dein Arbeitsbereich")
+- Terminologie: „Vorab-Auftrag" → „Vorbereitung" in allen Materialien
+- Facilitator-Guides: Hybrid-Prinzip (F08) – scanbarer Verlaufsplan statt Ablese-Skript; nur Gelenkstellen gescriptet
+- Einladungstemplate: Option C – Gesamt-Einladung + 3 separate Vorbereitungsblätter
+- Einladung: Zielgruppe explizit auf „Softwareentwickelnde mit impliziter Workflow-Erfahrung"
+- Peer-Review: Vollständiger Partnerwechsel in Runde 2 (kein 1:1-Tausch)
+- Facilitator-Checkliste: In Facilitator-Guides integriert (je Abschnitt „Vorbereitung" + „Nachbereitung")
+- Flussmetriken-Handout: F11-Definitionen – Commitment Point als CT-Start, WiP-Limits auf zwei Ebenen
 
 ### Hinzugefügt
-- GitHub Pages unter https://iulius-cataphractus.github.io/lise-Kanban-Schulung/
-- CHANGELOG.md (diese Datei)
+- Vorbereitungsblätter S1/S2/S3 als separate Dokumente
+- Guide-Vorlage v5 als Designreferenz für zukünftige Guides
+
+### Entfernt
+- Facilitator-Hinweise aus allen Slides
+- Separate Facilitator-Checkliste (Inhalt in Guides integriert)
+- Linksammlung als Datei (ersetzt durch GitHub Pages)
 
 ---
 
-## [v4.1] – 2026-04
+## [v4.1] – April 2026
 
 ### Geändert
-- Terminologie: Zustände → Spalten/Stages, Policies → Exit Criteria, SLE → Prognose
-- TWiG R1 auf 23 Min erweitert
-- R2 auf freie Konfiguration umgestellt
-- Bridging: Pull-Signale ergänzt
-- Commitment: Miro-Zone-A-Andockpunkt
-- fac-notes aus Slides entfernt
+- Terminologie: Zustände → Spalten/Stages, Policies → Exit Criteria, SLE → Prognose (SLE)
+- TWiG R1 auf 23 Min erweitert (Spiel ~15 Min + Debriefing ~8 Min)
+- TWiG R2: Empfehlung 2-2-2 explizit benannt, freie Konfiguration möglich
+- Bridging S2: Pull-Signale als 4. Verbindung ergänzt
+- Commitment S2: Miro-Andockpunkt für S3 Check-in explizit benannt
 
 ### Hinzugefügt
-- Spielmechanik-Karte (neu)
 - Facilitator-Checkliste (neu)
-- GitHub-Tutorial (neu)
+- README: GitHub-Tutorial, Schnellstart, Zeitplanung, Didaktisches Konzept
+- CHANGELOG.md (erstmals)
+- Spielmechanik-Karte mit 3 Regeln in TWiG-Session
 
 ---
 
-## [v4] – 2026-03
+## [v4] – März 2026
 
 ### Geändert
 - S2 auf 90 Min erweitert
+- Retrieval Practice in S2 neu gestaltet
 
 ### Hinzugefügt
-- Retrieval Practice (S2)
-- Pause/Stretch (S2)
-- Flussmetriken-Handout
-- HTML-Folien für alle Sessions
-- Feedback-Block (S3)
-- Follow-up-Angebot (S3)
+- Flussmetriken-Handout (neu)
+- HTML-Folien für alle Sessions (neu)
+- Feedback-Block in S3
+- Follow-up-Angebot in S3
+- Pause/Stretch in S2
 
 ---
 
 ## [v2.2] – 2025
 
-### Hinzugefügt
-- Quick-Wins: Puffer S2, Pair-Rotation, KI-Narrativ
+### Geändert
+- Quick-Wins: Puffer S2, Pair-Rotation, KI-Narrativ ergänzt
 
 ---
 
 ## [v2] – 2024
 
 ### Hinzugefügt
-- Erste vollständige 3-Session-Struktur mit Evaluationsframework
+- Erste vollständige 3-Session-Struktur
+- Evaluationsframework
+
+---
+
+*Kanban-Schulung lise | lise GmbH | https://github.com/iulius-cataphractus/lise-Kanban-Schulung*

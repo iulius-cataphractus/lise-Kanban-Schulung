@@ -54,17 +54,16 @@ Das Format entstand aus einer internen Schulungsserie und ist so aufgebaut, dass
 
 ## Materialien
 
-### Facilitator-Guides (Word)
+### Facilitator-Guides (Markdown)
 Detaillierte Moderationsanleitungen mit Zeitboxen, Wortlaut-Hinweisen, Backup-Plänen und Fehler-Checklisten.
 
-- [`docs/Einladungstemplate_Kanban-Schulung_v4.docx`](docs/Einladungstemplate_Kanban-Schulung_v4.docx) – Einladungsvorlage inkl. Vorbereitung S1
-- [`docs/Facilitator-Guide_S1_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S1_Kanban-Schulung_v4.docx) – Session 1
-- [`docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S2_Kanban-Schulung_v4.docx) – Session 2
-- [`docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx`](docs/Facilitator-Guide_S3_Kanban-Schulung_v4.docx) – Session 3
-- [`docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx`](docs/Flussmetriken-Handout_Kanban-Schulung_v4.docx) – 1-Pager für Teilnehmende (S1)
-- [`docs/Facilitator-Checkliste_Kanban-Schulung_v4.md`](docs/Facilitator-Checkliste_Kanban-Schulung_v4.md) – Vorbereitungs-Checkliste für alle Sessions
-- [`docs/Linksammlung_Kanban-Schulung_v4.docx`](docs/Linksammlung_Kanban-Schulung_v4.docx) – Kuratierte Ressourcen für alle Sessions
-  - *Right-sizing: Link folgt (Quelle in Klärung)*
+- [`docs/Einladungstemplate_Kanban-Schulung_v5.md`](docs/Einladungstemplate_Kanban-Schulung_v5.md) – Einladungsvorlage inkl. Übersicht aller drei Sessions
+- [`docs/Facilitator-Guide_S1_Kanban-Schulung_v5.md`](docs/Facilitator-Guide_S1_Kanban-Schulung_v5.md) – Session 1 (TWiG-Simulation)
+- [`docs/Facilitator-Guide_S2_Kanban-Schulung_v5.md`](docs/Facilitator-Guide_S2_Kanban-Schulung_v5.md) – Session 2 (Workflow definieren)
+- [`docs/Facilitator-Guide_S3_Kanban-Schulung_v5.md`](docs/Facilitator-Guide_S3_Kanban-Schulung_v5.md) – Session 3 (Kontinuierliche Verbesserung)
+- [`docs/Flussmetriken-Handout_Kanban-Schulung_v5.md`](docs/Flussmetriken-Handout_Kanban-Schulung_v5.md) – 1-Pager für Teilnehmende (S1)
+- Facilitator-Checkliste: Inhalt ist in die Facilitator-Guides integriert (Abschnitte „Vorbereitung vor Session" und „Nachbereitung nach Session")
+- Linksammlung: Alle Materialien auf [GitHub Pages](https://iulius-cataphractus.github.io/lise-Kanban-Schulung/)
 
 ### HTML-Folien (Facilitation-Begleitung)
 Navigierbare HTML-Dateien für Bildschirmteilung, Ausdrucken oder Miro-Import. Pfeil-Navigation + Tastatursteuerung.
@@ -83,10 +82,10 @@ Navigierbare HTML-Dateien für Bildschirmteilung, Ausdrucken oder Miro-Import. P
 ### Für Facilitatoren
 
 1. **Kanban Guide lesen** – [prokanban.org/the-kanban-guide](https://prokanban.org/the-kanban-guide/)
-2. **Facilitator-Checkliste öffnen** – `docs/Facilitator-Checkliste_Kanban-Schulung_v4.md`
+2. **Facilitator-Guide S1 öffnen** – `docs/Facilitator-Guide_S1_Kanban-Schulung_v5.md` (enthält Gesamtvorbereitung + Vorbereitungs-Checkliste)
 3. **Miro-Board aufsetzen** – Anleitung in `miro/Miro-Framestruktur_Kanban-Schulung_v4.md`
-4. **Einladung verschicken** – Template in `docs/Einladungstemplate_Kanban-Schulung_v4.docx` anpassen
-5. **Sessions vorbereiten** – Facilitator-Guides lesen, HTML-Folien im Browser öffnen
+4. **Einladung verschicken** – Template in `docs/Einladungstemplate_Kanban-Schulung_v5.md` anpassen
+5. **Sessions vorbereiten** – Facilitator-Guides lesen (S1/S2/S3), HTML-Folien im Browser öffnen
 6. **TWiG einrichten** – [analytics.actionableagile.com/twig](https://analytics.actionableagile.com/twig) – Runde 1: WIP 4-6-4, Runde 2: frei (Empf. 2-2-2)
 
 ### Zeitplanung
